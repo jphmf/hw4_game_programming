@@ -160,50 +160,41 @@ void Physics::addTileCollision(CollidableObject *dynamicObject, Tile *tile, floa
     activeCollisions.push_back(collisionToAdd);
 }
 
-//void Physics::addWinEventCollision(CollidableObject *dynamicObject, Tile *tile, float tileX, float tileY, float tileWidth, float tileHeight)
-//{
-//    // IF WE'VE ALREADY HANDLED A COLLISION BETWEEN THESE TWO OBJECTS THIS
-//    // FRAME THEN IGNORE IT
-//    set<Tile*> doTiles = spriteToTileCollisionsThisFrame[dynamicObject];
-//    if (doTiles.find(tile) != doTiles.end())
-//        return;
-//
-//    // GET A DUMMY COLLIDABLE OBJECT TO USE FOR THE TILE
-//    CollidableObject *tileInfoForCollision = recycledCollidableObjectsList.back();
-//
-//    // FILL IT WITH DATA
-//    AABB *bv = tileInfoForCollision->getBoundingVolume();
-//    bv->setCenterX(tileX + (tileWidth/2));
-//    bv->setCenterY(tileY + (tileHeight/2));
-//    bv->setWidth(tileWidth);
-//    bv->setHeight(tileHeight);
-//
-//    // FIRST WE'RE GOING TO DO A MORE NARROW CHECK TO SEE IF THE dynamicObject
-//    // REALLY DOES COLLIDE WITH THE TILE. TO DO SO WE'LL CALCULATE THE TIME
-//    // OF COLLISION. IF IT HAPPENS AFTER THIS FRAME IS OVER (> 1), THEN WE
-//    // WILL IGNORE IT
-//    unsigned int co1Edge, co2Edge;
-//    float timeUntilCollision = calculateTimeUntilCollision(dynamicObject, tileInfoForCollision, co1Edge, co2Edge, 0.0f);
-//    if (timeUntilCollision > 1.0f)
-//        return;
-//
-//    // IF IT MADE IT HERE, A COLLISION IS HAPPENING
-//    // AND REMOVE IT FROM THE RECYCLING CENTER
-//    recycledCollidableObjectsList.pop_back();
-//
-//    // NOW LET'S MAKE A COLLISION FOR THE TILE-SPRITE
-//    Collision *collisionToAdd = recycledCollisions.back();
-//    collisionToAdd->setCO1(dynamicObject);
-//    collisionToAdd->setCO2(tileInfoForCollision);
-//    collisionToAdd->setCO1Edge(co1Edge);
-//    collisionToAdd->setCO2Edge(co2Edge);
-//    collisionToAdd->setWinCollision(true);
-//    collisionToAdd->setCollisionWithTile(false);
-//    collisionToAdd->setTimeOfCollision(timeUntilCollision);
-//    collisionToAdd->setTile(tile);
-//    recycledCollisions.pop_back();
-//    activeCollisions.push_back(collisionToAdd);
-//}
+
+void Physics::addCollisionSpriteSprite(CollidableObject *dynamicObjectA, CollidableObject *dynamicObjectB)
+{
+    // IF WE'VE ALREADY HANDLED A COLLISION BETWEEN THESE TWO OBJECTS THIS
+    // FRAME THEN IGNORE IT
+    //PAULO- MAYBE IMPORTANT***********************
+    /*set<CollidableObject*> doSprite = spriteToSpriteCollisionsThisFrame[dynamicObjectB];
+    if (doSprite.find(dynamicObjectB) != doSprite.end())
+        return;*/
+
+
+
+    // FIRST WE'RE GOING TO DO A MORE NARROW CHECK TO SEE IF THE dynamicObject
+    // REALLY DOES COLLIDE WITH THE TILE. TO DO SO WE'LL CALCULATE THE TIME
+    // OF COLLISION. IF IT HAPPENS AFTER THIS FRAME IS OVER (> 1), THEN WE
+    // WILL IGNORE IT
+    unsigned int co1Edge, co2Edge;
+    float timeUntilCollision = calculateTimeUntilCollision(dynamicObjectA,dynamicObjectB, co1Edge, co2Edge, 0.0f);
+    if (timeUntilCollision > 1.0f)
+        return;
+
+
+
+    //// NOW LET'S MAKE A COLLISION FOR THE SPRITE-SPRITE
+    Collision *collisionToAdd = recycledCollisions.back();
+    collisionToAdd->setCO1(dynamicObjectA);
+    collisionToAdd->setCO2(dynamicObjectB);
+    collisionToAdd->setCO1Edge(co1Edge);
+    collisionToAdd->setCO2Edge(co2Edge);
+    collisionToAdd->setCollisionWithSprite(true);
+    collisionToAdd->setTimeOfCollision(timeUntilCollision);
+    //collisionToAdd->setTile(tile);
+    recycledCollisions.pop_back();
+    activeCollisions.push_back(collisionToAdd);
+}
 
 
 /*
@@ -258,7 +249,9 @@ void Physics::update(Game *game)
     vector<CollidableObject*>::iterator spritesIt = sortedSweptShapes[LEFT_EDGE]->begin();
     while (spritesIt != sortedSweptShapes[LEFT_EDGE]->end())
     {
+
         CollidableObject *sprite = (*spritesIt);
+
         prepSpriteForCollisionTesting(world, sprite);
         getAllTileCollisionsForAGivenSprite(world, sprite, 1.0f);
         spritesIt++;
@@ -274,6 +267,8 @@ void Physics::update(Game *game)
 
     // WE'RE USING C++'s STL sort METHOD AND ARE PROVIDING
     // A CUSTOM MEANS FOR COMPARISON
+
+    //PAULO- I THINK THIS WILL ONLY SEE IF THE SPRITES WILL COLLIDE ON X AXIS.
     sort(sortedSweptShapes[LEFT_EDGE]->begin(),		sortedSweptShapes[LEFT_EDGE]->end(),	SweptShapesComparitorByLeft());
     sort(sortedSweptShapes[RIGHT_EDGE]->begin(),	sortedSweptShapes[RIGHT_EDGE]->end(),	SweptShapesComparitorByRight());
 
@@ -283,6 +278,26 @@ void Physics::update(Game *game)
     updateSweptShapeIndices();
 
     // YOU'LL NEED TO TEST FOR SPRITE-TO-SPRITE COLLISIONS HERE
+    //PAULO- I AM GOING TO WORK JUST WITH ONE ADVERSARY, BUT I DON`T KNOW HOW TO TAKE THE NEIGHBORS OF ONE SPRITE
+    //BECAUSE OF THAT , I AM JUST GOING TO TAKE THE NEXT ONE TO USE IN THE COMPARISIONS
+
+    vector<CollidableObject*>::iterator iteratorSprite = sortedSweptShapes[LEFT_EDGE]->begin();
+    while (iteratorSprite != sortedSweptShapes[LEFT_EDGE]->end())
+    {
+
+
+        CollidableObject *sprite1 = (*iteratorSprite);
+         advance(iteratorSprite,1);
+        if((iteratorSprite != sortedSweptShapes[LEFT_EDGE]->end()))
+        {
+           
+            CollidableObject *sprite2 = (*iteratorSprite);
+            //prepSpriteForCollisionTesting(world, sprite);
+            //getAllTileCollisionsForAGivenSprite(world, sprite, 1.0f);
+            getCollisionsSpriteSprite(world, sprite1, sprite2, 1.0f);
+        }
+
+    }
 
     // *** LOOP STARTS HERE. WE'LL DO THIS UNTIL THERE ARE NO
     // MORE COLLISIONS TO RESOLVE FOR THIS FRAME
@@ -329,7 +344,7 @@ void Physics::update(Game *game)
         co1->updateSweptShape(1.0f - currentCollisionTime);
         getAllTileCollisionsForAGivenSprite(world, co1, 1.0f - currentCollisionTime);
 
-        
+
 
         // ONLY DO IT FOR THE SECOND ONE IF IT'S NOT A TILE
         if (!earliestCollision->isCollisionWithTile())
@@ -338,7 +353,10 @@ void Physics::update(Game *game)
             removeActiveCOCollisions(co2);
             co2->updateSweptShape(1.0f - currentCollisionTime);
             getAllTileCollisionsForAGivenSprite(world, co2, 1.0f - currentCollisionTime);
-
+            ////if(earliestCollision->isCollisionWithSprite())
+            ////{
+            //    co1->
+            ////}
 
         }
         else
@@ -347,7 +365,7 @@ void Physics::update(Game *game)
             spriteToTileCollisionsThisFrame[co1].insert(earliestCollision->getTile());
             recycledCollidableObjectsList.push_back(co2);
         }
-   
+
 
         //I should change this to get  different *win positions* 
         if (gsm->getSpriteManager()->getPlayer()->getBoundingVolume()->getBottom() >   30*64.0f)
@@ -356,7 +374,7 @@ void Physics::update(Game *game)
             gsm->win();
 
         }
-        
+
 
 
         // NOW WE NEED TO SEE IF THE SPRITES INVOLVED IN THE JUST
@@ -371,11 +389,13 @@ void Physics::update(Game *game)
         {
             reorderCollidableObject(co1);
         }
-        
+
 
 
         // YOU'LL HAVE TO WORRY ABOUT REORDERING STUFF FOR COLLISIONS
         // BETWEEN TWO SPRITES
+
+
 
         // NOW TEST NEIGHBORS OF SPRITES INVOLVED IN RESOLVED COLLISION
         // AGAINST NEIGHBORS IN SWEPT SHAPE DATA STRUCTURES. YOU'LL HAVE
@@ -508,6 +528,8 @@ void Physics::updateSweptShapeIndices()
 {
     updateSweptShapeIndices(sortedSweptShapes[LEFT_EDGE],	LEFT_EDGE);
     updateSweptShapeIndices(sortedSweptShapes[RIGHT_EDGE],	RIGHT_EDGE);
+    //PAULO- SHOULD I ADD TOP_EDGE AND BOTTOM_EDGE?
+
 }
 
 void Physics::updateSweptShapeIndices(vector<CollidableObject*> *sweptShapes, unsigned int ordering)
@@ -610,6 +632,79 @@ void Physics::getAllTileCollisionsForAGivenSprite(	World *world,
         if (layer->hasCollidableTiles())
             layer->findTileCollisionsForSprite(this, sprite);
     }
+}
+
+void Physics::getCollisionsSpriteSprite(	World *world,  
+                                        CollidableObject *spriteA,
+                                        CollidableObject *spriteB,
+                                        float percentageOfFrameRemaining)
+{
+    //vector<WorldLayer*> *layers = world->getLayers();
+    AABB *boundingVolumeA = spriteA->getBoundingVolume();
+    AABB *boundingVolumeB = spriteB->getBoundingVolume();
+    PhysicalProperties *ppA = spriteA->getPhysicalProperties();
+    PhysicalProperties *ppB = spriteB->getPhysicalProperties();
+
+
+    int centerA = boundingVolumeA->getCenterX();
+    int centerB = boundingVolumeB->getCenterX();
+
+    int widthA = boundingVolumeA->getWidth();
+    int widthB = boundingVolumeB->getWidth();
+
+    int heightA = boundingVolumeA->getHeight();
+    int heightB = boundingVolumeB->getHeight();
+
+    int vxA = ppA->getVelocityX();
+    int vxB = ppB->getVelocityX();
+
+    int vyA = ppA->getVelocityY();
+    int vyB = ppB->getVelocityY();
+
+    if ((centerB - (widthB/2)) > (centerA + (widthA/2)))
+    {
+        if(!((vxA - vxB) == 0)) {
+            int tx_first_contact = (centerB - (widthB/2) - (centerA + (widthA/2)))/(vxA - vxB);
+            int tx_last_contact = (centerB + (widthB/2) - (centerA - (widthA/2)))/(vxA - vxB);
+            if(tx_first_contact > percentageOfFrameRemaining)
+            {
+                //there`s no collision
+            }
+            else
+            {
+                if(!(vyA - vyB) == 0)
+                {
+                    //there`s contact on X axis, so let`s see if there`s contact on y axis
+                    int ty_first_contact = (centerB - (heightB/2) - (centerA + (heightA/2)))/(vyA - vyB);
+                    int ty_last_contact = (centerB + (heightB/2) - (centerA - (heightA/2)))/(vyA - vyB);
+                    if(ty_first_contact > percentageOfFrameRemaining)
+                    {
+                        //there`s no collision
+                    }
+                    else
+                    {
+                        //there`s collision!
+                        //add collision to vector
+                        addCollisionSpriteSprite(spriteA, spriteB);
+                    }
+                }
+
+                else 
+                {
+                    //none of them are not going anywhere up, so they must collide on x axis
+                    addCollisionSpriteSprite(spriteA, spriteB);
+                }
+
+            }
+        }
+        else 
+        {
+            //there`s no movement , so they won`t collide
+        }
+    }
+
+    // physics->addTileCollision(dynamicObject, testTile, tileX, tileY, (float)tileWidth, (float)tileHeight);
+
 }
 
 float Physics::calculateTimeUntilCollision(	CollidableObject *co1, 
@@ -774,6 +869,12 @@ void Physics::performCollisionResponse(Collision *collision)
     }
 
     // YOU'LL NEED TO HANDLE SPRITE-TO-SPRITE COLLISIONS
+    //PAULO- LASTHERE
+    if(collision->isCollisionWithSprite())
+    {
+        pp1->setVelocity(pp1->getVelocityX(), 0.0f);
+        pp2->setVelocity(pp2->getVelocityX(), 0.0f);
+    }
 
 
     // MAKE SURE SPRITES ON TILES REMAIN ON TILES

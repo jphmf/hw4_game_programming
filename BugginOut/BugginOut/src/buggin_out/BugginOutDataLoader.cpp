@@ -204,7 +204,7 @@ void BugginOutDataLoader::loadWorld(Game *game, wstring levelInitFile)
 	// A LINE NEAR THE TOP
 
 // UNCOMMENT THE FOLLOWING CODE BLOCK WHEN YOU ARE READY TO ADD SOME BOTS
-
+//PAULO- I AM JUST USING ONE BOT FOR NOW
 	for (int i = 2; i <= 26; i++)
 	{
 		float botX = 400.0f + (i * 100.0f);
@@ -213,22 +213,22 @@ void BugginOutDataLoader::loadWorld(Game *game, wstring levelInitFile)
 	}
 
 	// AND THEN STRATEGICALLY PLACED AROUND THE LEVEL
-	makeRandomJumpingBot(game, botSpriteType, 400, 100);
+	makeRandomJumpingBot(game, botSpriteType, 300, 200);
 	makeRandomJumpingBot(game, botSpriteType, 200, 400);
-	makeRandomJumpingBot(game, botSpriteType, 400, 400);
-	makeRandomJumpingBot(game, botSpriteType, 800, 700);
-	makeRandomJumpingBot(game, botSpriteType, 900, 700);
-	makeRandomJumpingBot(game, botSpriteType, 1000, 700);
-	makeRandomJumpingBot(game, botSpriteType, 100, 1000);
-	makeRandomJumpingBot(game, botSpriteType, 300, 1000);	
-	makeRandomJumpingBot(game, botSpriteType, 500, 1000);
-	makeRandomJumpingBot(game, botSpriteType, 100, 1400);
-	makeRandomJumpingBot(game, botSpriteType, 400, 1400);	
-	makeRandomJumpingBot(game, botSpriteType, 700, 1400);
+	//makeRandomJumpingBot(game, botSpriteType, 400, 400);
+	//makeRandomJumpingBot(game, botSpriteType, 800, 700);
+	//makeRandomJumpingBot(game, botSpriteType, 900, 700);
+	//makeRandomJumpingBot(game, botSpriteType, 1000, 700);
+	//makeRandomJumpingBot(game, botSpriteType, 100, 1000);
+	//makeRandomJumpingBot(game, botSpriteType, 300, 1000);	
+	//makeRandomJumpingBot(game, botSpriteType, 500, 1000);
+	//makeRandomJumpingBot(game, botSpriteType, 100, 1400);
+	//makeRandomJumpingBot(game, botSpriteType, 400, 1400);	
+	//makeRandomJumpingBot(game, botSpriteType, 700, 1400);
 
 	// AND THEN A BUNCH LINED UP NEAR THE LEVEL EXIT
-	for (int i = 0; i < 14; i++)
-		makeRandomJumpingBot(game, botSpriteType, 1700.0f + (i*100.0f), 1300.0f);
+	//for (int i = 0; i < 14; i++)
+	//	makeRandomJumpingBot(game, botSpriteType, 1700.0f + (i*100.0f), 1300.0f);
 
 }
 

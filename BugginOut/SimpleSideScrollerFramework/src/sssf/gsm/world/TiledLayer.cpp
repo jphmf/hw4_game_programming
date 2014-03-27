@@ -312,13 +312,6 @@ void TiledLayer::findTileCollisionsForSprite(	Physics *physics,
                 
 			}
 
-            //IF THE TILE IS IN THE PLACE OF THE END, PLAYER WIN
-    //        if(i == 29 && (j == 8 || j == 9)) // IS THERE A WAY TO DO THIS OTHER THAN HARD CODED?
-    //        {
-    //            float tileX = (float)(i * tileWidth);
-				//float tileY = (float)(j * tileHeight);
-    //            physics->addWinEventCollision(dynamicObject, testTile, tileX, tileY, (float)tileWidth, (float)tileHeight);
-    //        }
 		}
 	}
 }

@@ -83,9 +83,13 @@ public:
 	void togglePhysics() { activated = !activated; }
 	void update(Game *game);
 	bool willSpriteCollideOnTile(CollidableObject *co, AABB *tileAABB);
-
+    void addCollisionSpriteSprite(CollidableObject *dynamicObjectA, CollidableObject *dynamicObjectB);
 	// HELPER METHODS DEFINED INSIDE Physics.cpp - YOU ARE WELCOME TO ADD MORE AS YOU SEE FIT
 private:
+    void getCollisionsSpriteSprite(	World *world,  
+                                        CollidableObject *spriteA,
+                                        CollidableObject *spriteB,
+                                        float percentageOfFrameRemaining);
 	float calculateTimeUntilCollision(	CollidableObject *co1, 
 										CollidableObject *co2, 
 										unsigned int &co1Edge,

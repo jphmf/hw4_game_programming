@@ -12,7 +12,7 @@ private:
 	unsigned int co1Edge;
 	unsigned int co2Edge;
 	bool collisionWithTile;
-    bool winCollision;
+    bool collisionWithSprite;
 	float timeOfCollision;
 	float startTimeOfXCollision;
 	float endTimeOfXCollision;
@@ -33,14 +33,14 @@ public:
 	float getStartTimeOfXCollision(){ return startTimeOfXCollision;	}
 	float getStartTimeOfYCollision(){ return startTimeOfYCollision;	}
 	bool  isCollisionWithTile() {return collisionWithTile; }
-    bool  isWinCollision() {return winCollision; }
+    bool  isCollisionWithSprite() {return collisionWithSprite; }
 
 	void setCO1(CollidableObject *initCO1)	{ co1 = initCO1;				}
 	void setCO2(CollidableObject *initCO2)	{ co2 = initCO2;				}
 	void setCO1Edge(unsigned int initCO1Edge) { co1Edge = initCO1Edge; }
 	void setCO2Edge(unsigned int initCO2Edge) { co2Edge = initCO2Edge; }
 	void setCollisionWithTile(bool initCollisionWithTile) { collisionWithTile = initCollisionWithTile; }
-    void setWinCollision(bool initWinCollision) { winCollision = initWinCollision; }
+    void setCollisionWithSprite(bool initCollisionWithSprite) { collisionWithSprite = initCollisionWithSprite; }
 	void setTile(Tile *initTile) { tile = initTile; }
 	void setTimeOfCollision(float initTime) { timeOfCollision = initTime;	}
 	void setStartTimeOfXCollision(float initTime){ startTimeOfXCollision = initTime;	}
