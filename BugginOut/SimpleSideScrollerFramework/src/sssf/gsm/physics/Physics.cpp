@@ -686,6 +686,7 @@ void Physics::getCollisionsSpriteSprite(	World *world,
                 {
                     //there`s contact on X axis, so let`s see if there`s contact on y axis
                     int ty_first_contact = abs(((centerYB - (heightB/2)) - (centerYA + (heightA/2)))/(vyA - vyB));
+                    //int ty_first_contact =  boundingVolumeA->overlapsY(boundingVolumeB);
                     int ty_last_contact = abs(((centerYB + (heightB/2)) - (centerYA - (heightA/2)))/(vyA - vyB));
                     if(ty_first_contact > percentageOfFrameRemaining)
                     {
@@ -703,7 +704,8 @@ void Physics::getCollisionsSpriteSprite(	World *world,
                 {
                     //none of them are not going anywhere up, so they must collide on x axis
                     //if they collide on y
-                    if(((centerYB + heightB/2) - (centerYA - heightA/2)) >= 0)
+                    //if(((centerYB + heightB/2) - (centerYA - heightA/2)) >= 0)
+                    if(boundingVolumeA->overlapsY(boundingVolumeB))
                     {addCollisionSpriteSprite(spriteA, spriteB);}
 
                 }
@@ -712,7 +714,22 @@ void Physics::getCollisionsSpriteSprite(	World *world,
         }
         else 
         {
-            //there`s no movement , so they won`t collide
+           //the situation here is kind of special
+            //they could be stopped in X, or they could be walking in the same velocity
+            //in the second situation, we are cool because they wouldn`t collide anyway
+            //in the firt situation, they could colide (one on top of the other)
+            //because of this, we have to make sure that one is on top of the other
+            //and that they can collide on y axis
+            //boundingVolumeB->setWidth(boundingVolumeB->getWidth() *2);
+            if(boundingVolumeA->overlapsX(boundingVolumeB))// && !(boundingVolumeA->overlapsY(boundingVolumeB)))
+            {
+                //boundingVolumeB->setWidth(boundingVolumeB->getWidth()/2);
+                addCollisionSpriteSprite(spriteA, spriteB);
+            }
+
+
+
+           
         }
     }
     // B - A
@@ -720,6 +737,8 @@ void Physics::getCollisionsSpriteSprite(	World *world,
     {
         if(!((vxB - vxA) == 0)) {
             int tx_first_contact = abs(((centerXA - (widthA/2)) - (centerXB + (widthB/2)))/(vxB - vxA));
+            
+            //int tx_first_contact = boundingVolumeB->overlapsX(boundingVolumeA);
             int tx_last_contact = abs(((centerXA + (widthA/2)) - (centerXB - (widthB/2)))/(vxB - vxA));
             if(tx_first_contact > percentageOfFrameRemaining)
             {
@@ -731,6 +750,7 @@ void Physics::getCollisionsSpriteSprite(	World *world,
                 {
                     //there`s contact on X axis, so let`s see if there`s contact on y axis
                     int ty_first_contact = abs(((centerYA - (heightA/2)) - (centerYB + (heightB/2)))/(vyB - vyA));
+                    //int ty_first_contact = boundingVolumeB->overlapsY(boundingVolumeA);
                     int ty_last_contact = abs(((centerYA + (heightA/2)) - (centerYB - (heightB/2)))/(vyB - vyA));
                     if(ty_first_contact > percentageOfFrameRemaining)
                     {
@@ -748,7 +768,8 @@ void Physics::getCollisionsSpriteSprite(	World *world,
                 {
                     //none of them are not going anywhere up, so they must collide on x axis
                     //if they collide on y
-                    if(((centerYA - heightA/2) - (centerYB + heightB/2)) <= 0  )
+                    //if(((centerYA - heightA/2) - (centerYB + heightB/2)) <= 0  )
+                    if(boundingVolumeB->overlapsY(boundingVolumeA))
                     {addCollisionSpriteSprite(spriteA, spriteB);}
 
                 }
@@ -757,6 +778,11 @@ void Physics::getCollisionsSpriteSprite(	World *world,
         else 
         {
             //there`s no movement , so they won`t collide
+           // boundingVolumeA->setWidth(boundingVolumeA->getWidth() *2);
+            if(boundingVolumeB->overlapsX(boundingVolumeA))//&& !(boundingVolumeB->overlapsY(boundingVolumeA)))
+            {
+                addCollisionSpriteSprite(spriteA, spriteB);
+            }
         }
     }
 
@@ -937,11 +963,11 @@ void Physics::performCollisionResponse(Collision *collision)
 
         }
 
-
-
-    
-
-
+        if(collision->getCO1Edge() == BOTTOM_EDGE && collision->getCO2Edge() == TOP_EDGE)
+        {
+            pp1->setVelocity(pp1->getVelocityX(),0.0f);
+            //pp2->setVelocity(0,0);
+        }
     }
 
 

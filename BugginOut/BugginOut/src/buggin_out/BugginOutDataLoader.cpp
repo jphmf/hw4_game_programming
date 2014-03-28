@@ -237,7 +237,7 @@ void BugginOutDataLoader::makeRandomJumpingBot(Game *game, AnimatedSpriteType *r
 	SpriteManager *spriteManager = game->getGSM()->getSpriteManager();
 	Physics *physics = game->getGSM()->getPhysics();
 	//RandomJumpingBot *bot = new RandomJumpingBot(physics, 30, 120, 40);
-    RandomJumpingBot *bot = new RandomJumpingBot(physics, 30, 120, 0);
+    RandomJumpingBot *bot = new RandomJumpingBot(physics, 30, 120,0);
     
 	physics->addCollidableObject(bot);
 	PhysicalProperties *pp = bot->getPhysicalProperties();
