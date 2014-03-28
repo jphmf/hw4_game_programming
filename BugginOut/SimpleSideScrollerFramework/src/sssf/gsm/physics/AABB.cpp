@@ -15,6 +15,15 @@ bool  AABB::overlapsX(AABB *testAABB)
 		return true;
 }
 
+bool  AABB::myOverlapsX(AABB *testAABB)
+{
+	float diffX = centerX - testAABB->centerX;
+	if (abs(diffX) > ((width/2) + (testAABB->width/2)))
+		return false;
+	else
+		return true;
+}
+
 bool  AABB::overlapsY(AABB *testAABB)
 {
 	float diffY = centerY - testAABB->centerY;

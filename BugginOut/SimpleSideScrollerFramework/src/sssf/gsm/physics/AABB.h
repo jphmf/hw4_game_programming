@@ -33,4 +33,5 @@ public:
 	bool  overlaps(AABB *testAABB);
 	bool  overlapsX(AABB *testAABB);
 	bool  overlapsY(AABB *testAABB);
+    bool  myOverlapsX(AABB *testAABB);
 };

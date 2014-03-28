@@ -721,7 +721,7 @@ void Physics::getCollisionsSpriteSprite(	World *world,
             //because of this, we have to make sure that one is on top of the other
             //and that they can collide on y axis
             //boundingVolumeB->setWidth(boundingVolumeB->getWidth() *2);
-            if(boundingVolumeA->overlapsX(boundingVolumeB))// && !(boundingVolumeA->overlapsY(boundingVolumeB)))
+            if(boundingVolumeA->myOverlapsX(boundingVolumeB))// && !(boundingVolumeA->overlapsY(boundingVolumeB)))
             {
                 //boundingVolumeB->setWidth(boundingVolumeB->getWidth()/2);
                 addCollisionSpriteSprite(spriteA, spriteB);
@@ -779,7 +779,7 @@ void Physics::getCollisionsSpriteSprite(	World *world,
         {
             //there`s no movement , so they won`t collide
            // boundingVolumeA->setWidth(boundingVolumeA->getWidth() *2);
-            if(boundingVolumeB->overlapsX(boundingVolumeA))//&& !(boundingVolumeB->overlapsY(boundingVolumeA)))
+            if(boundingVolumeB->myOverlapsX(boundingVolumeA))//&& !(boundingVolumeB->overlapsY(boundingVolumeA)))
             {
                 addCollisionSpriteSprite(spriteA, spriteB);
             }
@@ -956,9 +956,9 @@ void Physics::performCollisionResponse(Collision *collision)
     if(collision->isCollisionWithSprite())
     {
         //STH happen here
-        if((collision->getCO1Edge() == RIGHT_EDGE) || (collision->getCO1Edge() == LEFT_EDGE))
+        if((collision->getCO1Edge() == RIGHT_EDGE ) || (collision->getCO1Edge() == LEFT_EDGE))
         {
-            pp1->setVelocity(-pp1->getVelocityX() - 30, pp1->getVelocityY());
+            pp1->setVelocity(-pp1->getVelocityX() - 0.3, pp1->getVelocityY());
             //pp2->setVelocity(-pp2->getVelocityX() + 20, pp2->getVelocityY());
 
         }

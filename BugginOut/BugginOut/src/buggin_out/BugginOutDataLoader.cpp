@@ -205,12 +205,12 @@ void BugginOutDataLoader::loadWorld(Game *game, wstring levelInitFile)
 
 // UNCOMMENT THE FOLLOWING CODE BLOCK WHEN YOU ARE READY TO ADD SOME BOTS
 //PAULO- I AM JUST USING ONE BOT FOR NOW
-	/*for (int i = 2; i <= 26; i++)
-	{
-		float botX = 400.0f + (i * 100.0f);
-		float botY = 100.0f;
-		makeRandomJumpingBot(game, botSpriteType, botX, botY);
-	}*/
+	//for (int i = 2; i <= 26; i++)
+	//{
+	//	float botX = 400.0f + (i * 100.0f);
+	//	float botY = 100.0f;
+	//	makeRandomJumpingBot(game, botSpriteType, botX, botY);
+	//}
 
 	// AND THEN STRATEGICALLY PLACED AROUND THE LEVEL
 	makeRandomJumpingBot(game, botSpriteType, 300, 200);
