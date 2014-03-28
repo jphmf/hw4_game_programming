@@ -18,7 +18,9 @@ protected:
     //ADDED BY PAULO BECAUSE THE CODE DOESNT KNOW HOW TO DEAL WITH A DIFFERENT TYPE OTHER THAN A TILE
     bool isTile;
     bool isSprite;
-	
+	int hp;
+    int lives;
+    bool isAMonster;
     
     AABB sweptShape;
 	unsigned int sweepAndPruneIndices[4];
@@ -43,13 +45,16 @@ public:
 	AABB*				getSweptShape()				{ return &sweptShape;			}
 	PhysicalProperties* getPhysicalProperties()		{ return &pp;					}
 	unsigned int		getCollisionEdge()			{ return collisionEdge;			}
-
+    bool                getIfMonster()      {return isAMonster;}
+    int getHp()   {return hp;}
+    int getLives()   {return lives;}
 //ADDED BY PAULO BECAUSE THE CODE DOESNT KNOW HOW TO DEAL WITH A DIFFERENT TYPE OTHER THAN A TILE
     bool                isItATile()                    { return isTile;                }
     bool                isItASprite()                    { return isSprite;                }
 
-
-
+    void setHp(int num) {hp = num;}
+    void setLives(int num) {lives = num;}
+    void setIfMonster(bool b ) {isAMonster = b;}
     void                setIfIsTile(bool initIsTile ) {isTile = initIsTile;}
     void                setIfIsSprite(bool initIsSprite ) {isSprite = initIsSprite;}
 	void				setCollisionEdge(unsigned int initCollisionEdge)

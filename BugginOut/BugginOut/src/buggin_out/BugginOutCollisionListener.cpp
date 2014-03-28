@@ -10,21 +10,49 @@ void BugginOutCollisionListener::respondToCollision(Game *game, Collision *colli
     
 
 	if (!collision->isCollisionWithTile())
-	{
-		CollidableObject *sprite1 = collision->getCO1();
+    {
+        CollidableObject *sprite1 = collision->getCO1();
         CollidableObject *sprite2 = collision->getCO2();
-		if (sprite1->getCollisionEdge() == BOTTOM_EDGE)
-		{
-			// ENEMY IS DEAD - WE SHOULD PLAY A DEATH ANIMATION
-			// AND MARK IT FOR REMOVAL
-		}
-		else
-		{
-			// PLAYER IS DEAD - WE SHOULD PLAY A DEATH ANIMATION
-			// AND MARK IT FOR REMOVAL/RESPAWN/RESTART GAME, WHATEVER
-			// THE DEMANDS OF THE GAME ARE
-		}
-	}
+        if (sprite1->getCollisionEdge() == BOTTOM_EDGE)
+        {
+            // ENEMY IS DEAD - WE SHOULD PLAY A DEATH ANIMATION
+            // AND MARK IT FOR REMOVAL
+        }
+        else
+        {
+            // PLAYER IS DEAD - WE SHOULD PLAY A DEATH ANIMATION
+            // AND MARK IT FOR REMOVAL/RESPAWN/RESTART GAME, WHATEVER
+            // THE DEMANDS OF THE GAME ARE
+             
+            if(!sprite1->getIfMonster())
+            {
+              if(sprite1->getHp() > 0)
+                {
+                    sprite1->setHp(sprite1->getHp() -10);
+                }
+                
+                else
+                {
+                    sprite1->setLives(sprite1->getLives() - 1);
+                }
+            }
+
+            else if(!sprite2->getIfMonster())
+            {
+             if(sprite2->getHp() > 0)
+                {
+                    sprite2->setHp(sprite2->getHp() -10);
+                }
+                
+                else
+                {
+                    sprite2->setLives(sprite2->getLives() - 1);
+                }
+
+            }
+
+        }
+    }
 
   
 }

@@ -956,18 +956,24 @@ void Physics::performCollisionResponse(Collision *collision)
     if(collision->isCollisionWithSprite())
     {
         //STH happen here
-        if((collision->getCO1Edge() == RIGHT_EDGE ) || (collision->getCO1Edge() == LEFT_EDGE))
+        if((collision->getCO1Edge() == RIGHT_EDGE ))//|| (collision->getCO1Edge() == LEFT_EDGE))
         {
-            pp1->setVelocity(-pp1->getVelocityX() - 0.3, pp1->getVelocityY());
-            //pp2->setVelocity(-pp2->getVelocityX() + 20, pp2->getVelocityY());
+
+            
+                pp1->setVelocity(-pp1->getVelocityX() - 30, pp1->getVelocityY());
+            
+            //pp2->setVelocity(0.0f, pp2->getVelocityY());
 
         }
 
-        if(collision->getCO1Edge() == BOTTOM_EDGE && collision->getCO2Edge() == TOP_EDGE)
+        if(collision->getCO1Edge() == BOTTOM_EDGE )//&& collision->getCO2Edge() == TOP_EDGE)
         {
             pp1->setVelocity(pp1->getVelocityX(),0.0f);
             //pp2->setVelocity(0,0);
         }
+
+        if(collision->getCO1Edge() == TOP_EDGE)
+        {pp2->setVelocity(pp2->getVelocityX(),0.0f);}
     }
 
 
