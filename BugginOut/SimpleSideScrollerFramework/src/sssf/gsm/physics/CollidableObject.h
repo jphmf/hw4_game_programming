@@ -14,7 +14,13 @@ class CollidableObject
 protected:
 	AABB boundingVolume;
 	bool currentlyCollidable;
-	AABB sweptShape;
+
+    //ADDED BY PAULO BECAUSE THE CODE DOESNT KNOW HOW TO DEAL WITH A DIFFERENT TYPE OTHER THAN A TILE
+    bool isTile;
+    bool isSprite;
+	
+    
+    AABB sweptShape;
 	unsigned int sweepAndPruneIndices[4];
 	PhysicalProperties pp;
 	bool onTileThisFrame;
@@ -38,7 +44,14 @@ public:
 	PhysicalProperties* getPhysicalProperties()		{ return &pp;					}
 	unsigned int		getCollisionEdge()			{ return collisionEdge;			}
 
+//ADDED BY PAULO BECAUSE THE CODE DOESNT KNOW HOW TO DEAL WITH A DIFFERENT TYPE OTHER THAN A TILE
+    bool                isItATile()                    { return isTile;                }
+    bool                isItASprite()                    { return isSprite;                }
 
+
+
+    void                setIfIsTile(bool initIsTile ) {isTile = initIsTile;}
+    void                setIfIsSprite(bool initIsSprite ) {isSprite = initIsSprite;}
 	void				setCollisionEdge(unsigned int initCollisionEdge)
 	{	collisionEdge = initCollisionEdge; }
 	unsigned int		getSweepAndPruneIndex(unsigned int sweepAndPruneOrdering)		

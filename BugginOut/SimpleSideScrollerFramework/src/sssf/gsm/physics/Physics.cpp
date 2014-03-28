@@ -90,6 +90,8 @@ added object overlaps an object already in the game.
 */
 void Physics::addCollidableObject(CollidableObject *collidableObjectToAdd)
 {
+    //it seams that only sprites use this method 
+    collidableObjectToAdd->setIfIsSprite(true);
     set<Tile*> tileSetToAdd;
     spriteToTileCollisionsThisFrame[collidableObjectToAdd] = tileSetToAdd;
     sortedSweptShapes[LEFT_EDGE]->push_back(collidableObjectToAdd);
@@ -153,6 +155,7 @@ void Physics::addTileCollision(CollidableObject *dynamicObject, Tile *tile, floa
     collisionToAdd->setCO2(tileInfoForCollision);
     collisionToAdd->setCO1Edge(co1Edge);
     collisionToAdd->setCO2Edge(co2Edge);
+    collisionToAdd->setCollisionWithSprite(false);
     collisionToAdd->setCollisionWithTile(true);
     collisionToAdd->setTimeOfCollision(timeUntilCollision);
     collisionToAdd->setTile(tile);
@@ -168,7 +171,7 @@ void Physics::addCollisionSpriteSprite(CollidableObject *dynamicObjectA, Collida
     //PAULO- MAYBE IMPORTANT***********************
     /*set<CollidableObject*> doSprite = spriteToSpriteCollisionsThisFrame[dynamicObjectB];
     if (doSprite.find(dynamicObjectB) != doSprite.end())
-        return;*/
+    return;*/
 
 
 
@@ -190,6 +193,7 @@ void Physics::addCollisionSpriteSprite(CollidableObject *dynamicObjectA, Collida
     collisionToAdd->setCO1Edge(co1Edge);
     collisionToAdd->setCO2Edge(co2Edge);
     collisionToAdd->setCollisionWithSprite(true);
+    collisionToAdd->setCollisionWithTile(false);
     collisionToAdd->setTimeOfCollision(timeUntilCollision);
     //collisionToAdd->setTile(tile);
     recycledCollisions.pop_back();
@@ -285,16 +289,19 @@ void Physics::update(Game *game)
     while (iteratorSprite != sortedSweptShapes[LEFT_EDGE]->end())
     {
 
-
+        //PAULO- TESTS IN PAIR
         CollidableObject *sprite1 = (*iteratorSprite);
-         advance(iteratorSprite,1);
-        if((iteratorSprite != sortedSweptShapes[LEFT_EDGE]->end()))
-        {
-           
-            CollidableObject *sprite2 = (*iteratorSprite);
-            //prepSpriteForCollisionTesting(world, sprite);
-            //getAllTileCollisionsForAGivenSprite(world, sprite, 1.0f);
-            getCollisionsSpriteSprite(world, sprite1, sprite2, 1.0f);
+        
+            advance(iteratorSprite,1);
+            if((iteratorSprite != sortedSweptShapes[LEFT_EDGE]->end()))
+            {
+
+                CollidableObject *sprite2 = (*iteratorSprite);
+                //prepSpriteForCollisionTesting(world, sprite);
+                //getAllTileCollisionsForAGivenSprite(world, sprite, 1.0f);
+               
+                    getCollisionsSpriteSprite(world, sprite1, sprite2, 1.0f);
+
         }
 
     }
@@ -646,8 +653,11 @@ void Physics::getCollisionsSpriteSprite(	World *world,
     PhysicalProperties *ppB = spriteB->getPhysicalProperties();
 
 
-    int centerA = boundingVolumeA->getCenterX();
-    int centerB = boundingVolumeB->getCenterX();
+    int centerXA = boundingVolumeA->getCenterX();
+    int centerXB = boundingVolumeB->getCenterX();
+
+    int centerYA = boundingVolumeA->getCenterY();
+    int centerYB = boundingVolumeB->getCenterY();
 
     int widthA = boundingVolumeA->getWidth();
     int widthB = boundingVolumeB->getWidth();
@@ -660,12 +670,12 @@ void Physics::getCollisionsSpriteSprite(	World *world,
 
     int vyA = ppA->getVelocityY();
     int vyB = ppB->getVelocityY();
-
-    if ((centerB - (widthB/2)) > (centerA + (widthA/2)))
+    // A - B
+    if ((centerXB - (widthB/2)) > (centerXA + (widthA/2)))
     {
         if(!((vxA - vxB) == 0)) {
-            int tx_first_contact = (centerB - (widthB/2) - (centerA + (widthA/2)))/(vxA - vxB);
-            int tx_last_contact = (centerB + (widthB/2) - (centerA - (widthA/2)))/(vxA - vxB);
+            int tx_first_contact = abs(((centerXB - (widthB/2)) - (centerXA + (widthA/2)))/(vxA - vxB));
+            int tx_last_contact = abs(((centerXB + (widthB/2)) - (centerXA - (widthA/2)))/(vxA - vxB));
             if(tx_first_contact > percentageOfFrameRemaining)
             {
                 //there`s no collision
@@ -675,8 +685,8 @@ void Physics::getCollisionsSpriteSprite(	World *world,
                 if(!(vyA - vyB) == 0)
                 {
                     //there`s contact on X axis, so let`s see if there`s contact on y axis
-                    int ty_first_contact = (centerB - (heightB/2) - (centerA + (heightA/2)))/(vyA - vyB);
-                    int ty_last_contact = (centerB + (heightB/2) - (centerA - (heightA/2)))/(vyA - vyB);
+                    int ty_first_contact = abs(((centerYB - (heightB/2)) - (centerYA + (heightA/2)))/(vyA - vyB));
+                    int ty_last_contact = abs(((centerYB + (heightB/2)) - (centerYA - (heightA/2)))/(vyA - vyB));
                     if(ty_first_contact > percentageOfFrameRemaining)
                     {
                         //there`s no collision
@@ -692,9 +702,56 @@ void Physics::getCollisionsSpriteSprite(	World *world,
                 else 
                 {
                     //none of them are not going anywhere up, so they must collide on x axis
-                    addCollisionSpriteSprite(spriteA, spriteB);
+                    //if they collide on y
+                    if(((centerYB + heightB/2) - (centerYA - heightA/2)) >= 0)
+                    {addCollisionSpriteSprite(spriteA, spriteB);}
+
                 }
 
+            }
+        }
+        else 
+        {
+            //there`s no movement , so they won`t collide
+        }
+    }
+    // B - A
+    else
+    {
+        if(!((vxB - vxA) == 0)) {
+            int tx_first_contact = abs(((centerXA - (widthA/2)) - (centerXB + (widthB/2)))/(vxB - vxA));
+            int tx_last_contact = abs(((centerXA + (widthA/2)) - (centerXB - (widthB/2)))/(vxB - vxA));
+            if(tx_first_contact > percentageOfFrameRemaining)
+            {
+                //there`s no collision
+            }
+            else
+            {
+                if(!(vyB - vyA) == 0)
+                {
+                    //there`s contact on X axis, so let`s see if there`s contact on y axis
+                    int ty_first_contact = abs(((centerYA - (heightA/2)) - (centerYB + (heightB/2)))/(vyB - vyA));
+                    int ty_last_contact = abs(((centerYA + (heightA/2)) - (centerYB - (heightB/2)))/(vyB - vyA));
+                    if(ty_first_contact > percentageOfFrameRemaining)
+                    {
+                        //there`s no collision
+                    }
+                    else
+                    {
+                        //there`s collision!
+                        //add collision to vector
+                        addCollisionSpriteSprite(spriteA, spriteB);
+                    }
+                }
+
+                else 
+                {
+                    //none of them are not going anywhere up, so they must collide on x axis
+                    //if they collide on y
+                    if(((centerYA - heightA/2) - (centerYB + heightB/2)) <= 0  )
+                    {addCollisionSpriteSprite(spriteA, spriteB);}
+
+                }
             }
         }
         else 
@@ -872,8 +929,19 @@ void Physics::performCollisionResponse(Collision *collision)
     //PAULO- LASTHERE
     if(collision->isCollisionWithSprite())
     {
-        pp1->setVelocity(pp1->getVelocityX(), 0.0f);
-        pp2->setVelocity(pp2->getVelocityX(), 0.0f);
+        //STH happen here
+        if((collision->getCO1Edge() == RIGHT_EDGE) || (collision->getCO1Edge() == LEFT_EDGE))
+        {
+            pp1->setVelocity(-pp1->getVelocityX() - 30, pp1->getVelocityY());
+            //pp2->setVelocity(-pp2->getVelocityX() + 20, pp2->getVelocityY());
+
+        }
+
+
+
+    
+
+
     }
 
 

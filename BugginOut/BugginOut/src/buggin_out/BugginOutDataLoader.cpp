@@ -205,16 +205,16 @@ void BugginOutDataLoader::loadWorld(Game *game, wstring levelInitFile)
 
 // UNCOMMENT THE FOLLOWING CODE BLOCK WHEN YOU ARE READY TO ADD SOME BOTS
 //PAULO- I AM JUST USING ONE BOT FOR NOW
-	for (int i = 2; i <= 26; i++)
+	/*for (int i = 2; i <= 26; i++)
 	{
 		float botX = 400.0f + (i * 100.0f);
 		float botY = 100.0f;
 		makeRandomJumpingBot(game, botSpriteType, botX, botY);
-	}
+	}*/
 
 	// AND THEN STRATEGICALLY PLACED AROUND THE LEVEL
 	makeRandomJumpingBot(game, botSpriteType, 300, 200);
-	makeRandomJumpingBot(game, botSpriteType, 200, 400);
+	//makeRandomJumpingBot(game, botSpriteType, 200, 400);
 	//makeRandomJumpingBot(game, botSpriteType, 400, 400);
 	//makeRandomJumpingBot(game, botSpriteType, 800, 700);
 	//makeRandomJumpingBot(game, botSpriteType, 900, 700);
@@ -236,7 +236,9 @@ void BugginOutDataLoader::makeRandomJumpingBot(Game *game, AnimatedSpriteType *r
 {
 	SpriteManager *spriteManager = game->getGSM()->getSpriteManager();
 	Physics *physics = game->getGSM()->getPhysics();
-	RandomJumpingBot *bot = new RandomJumpingBot(physics, 30, 120, 40);
+	//RandomJumpingBot *bot = new RandomJumpingBot(physics, 30, 120, 40);
+    RandomJumpingBot *bot = new RandomJumpingBot(physics, 30, 120, 0);
+    
 	physics->addCollidableObject(bot);
 	PhysicalProperties *pp = bot->getPhysicalProperties();
 	pp->setPosition(initX, initY);

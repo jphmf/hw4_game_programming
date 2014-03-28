@@ -1,0 +1,506 @@
+[1mdiff --git a/BugginOut/Apps/BugginOut/BugginOut.exe b/BugginOut/Apps/BugginOut/BugginOut.exe[m
+[1mindex 58f5b62..d15ae67 100644[m
+Binary files a/BugginOut/Apps/BugginOut/BugginOut.exe and b/BugginOut/Apps/BugginOut/BugginOut.exe differ
+[1mdiff --git a/BugginOut/Apps/BugginOut/BugginOut.ilk b/BugginOut/Apps/BugginOut/BugginOut.ilk[m
+[1mindex b870c4c..eed4477 100644[m
+Binary files a/BugginOut/Apps/BugginOut/BugginOut.ilk and b/BugginOut/Apps/BugginOut/BugginOut.ilk differ
+[1mdiff --git a/BugginOut/Apps/BugginOut/BugginOut.pdb b/BugginOut/Apps/BugginOut/BugginOut.pdb[m
+[1mindex 20308d1..e5ebe40 100644[m
+Binary files a/BugginOut/Apps/BugginOut/BugginOut.pdb and b/BugginOut/Apps/BugginOut/BugginOut.pdb differ
+[1mdiff --git a/BugginOut/BugginOut.sdf b/BugginOut/BugginOut.sdf[m
+[1mindex d46c179..e694d2c 100644[m
+Binary files a/BugginOut/BugginOut.sdf and b/BugginOut/BugginOut.sdf differ
+[1mdiff --git a/BugginOut/BugginOut.v11.suo b/BugginOut/BugginOut.v11.suo[m
+[1mindex e5124ef..71380ec 100644[m
+Binary files a/BugginOut/BugginOut.v11.suo and b/BugginOut/BugginOut.v11.suo differ
+[1mdiff --git a/BugginOut/BugginOut/src/buggin_out/BugginOutDataLoader.cpp b/BugginOut/BugginOut/src/buggin_out/BugginOutDataLoader.cpp[m
+[1mindex 8cf2279..efc4ec5 100644[m
+[1m--- a/BugginOut/BugginOut/src/buggin_out/BugginOutDataLoader.cpp[m
+[1m+++ b/BugginOut/BugginOut/src/buggin_out/BugginOutDataLoader.cpp[m
+[36m@@ -205,12 +205,12 @@[m [mvoid BugginOutDataLoader::loadWorld(Game *game, wstring levelInitFile)[m
+ [m
+ // UNCOMMENT THE FOLLOWING CODE BLOCK WHEN YOU ARE READY TO ADD SOME BOTS[m
+ //PAULO- I AM JUST USING ONE BOT FOR NOW[m
+[31m-	for (int i = 2; i <= 26; i++)[m
+[31m-	{[m
+[31m-		float botX = 400.0f + (i * 100.0f);[m
+[31m-		float botY = 100.0f;[m
+[31m-		makeRandomJumpingBot(game, botSpriteType, botX, botY);[m
+[31m-	}[m
+[32m+[m	[32m//for (int i = 2; i <= 26; i++)[m
+[32m+[m	[32m//{[m
+[32m+[m	[32m//	float botX = 400.0f + (i * 100.0f);[m
+[32m+[m	[32m//	float botY = 100.0f;[m
+[32m+[m	[32m//	makeRandomJumpingBot(game, botSpriteType, botX, botY);[m
+[32m+[m	[32m//}[m
+ [m
+ 	// AND THEN STRATEGICALLY PLACED AROUND THE LEVEL[m
+ 	makeRandomJumpingBot(game, botSpriteType, 300, 200);[m
+[1mdiff --git a/BugginOut/Common/PoseurSpriteTypesImporter.lib b/BugginOut/Common/PoseurSpriteTypesImporter.lib[m
+[1mindex 137a0c8..bdafbe0 100644[m
+Binary files a/BugginOut/Common/PoseurSpriteTypesImporter.lib and b/BugginOut/Common/PoseurSpriteTypesImporter.lib differ
+[1mdiff --git a/BugginOut/Common/SimpleSideScrollerFramework.lib b/BugginOut/Common/SimpleSideScrollerFramework.lib[m
+[1mindex 68b34fd..214be7f 100644[m
+Binary files a/BugginOut/Common/SimpleSideScrollerFramework.lib and b/BugginOut/Common/SimpleSideScrollerFramework.lib differ
+[1mdiff --git a/BugginOut/SimpleSideScrollerFramework/src/sssf/gsm/physics/Physics.cpp b/BugginOut/SimpleSideScrollerFramework/src/sssf/gsm/physics/Physics.cpp[m
+[1mindex 4068308..03cc5ca 100644[m
+[1m--- a/BugginOut/SimpleSideScrollerFramework/src/sssf/gsm/physics/Physics.cpp[m
+[1m+++ b/BugginOut/SimpleSideScrollerFramework/src/sssf/gsm/physics/Physics.cpp[m
+[36m@@ -32,7 +32,7 @@[m [mPhysics::Physics()[m
+ {[m
+     // DEFAULT GRAVITY IS 1.0f[m
+     gravity = DEFAULT_GRAVITY;[m
+[31m-[m
+[32m+[m[41m    [m
+     // POPULATE THEM WITH 1000 OBJECTS TO SHARE[m
+     // WHY 1000? BECAUSE I HAD TO PICK SOME NUMBER BIG ENOUGH[m
+     // THAT WE'LL NEVER REACH, NOT THE MOST EFFICIENT TECHNIQUE,[m
+[36m@@ -294,6 +294,7 @@[m [mvoid Physics::update(Game *game)[m
+             CollidableObject *sprite2 = (*iteratorSprite);[m
+             //prepSpriteForCollisionTesting(world, sprite);[m
+             //getAllTileCollisionsForAGivenSprite(world, sprite, 1.0f);[m
+[32m+[m[32m            text = game->getText();[m
+             getCollisionsSpriteSprite(world, sprite1, sprite2, 1.0f);[m
+         }[m
+ [m
+[36m@@ -661,6 +662,7 @@[m [mvoid Physics::getCollisionsSpriteSprite(	World *world,[m
+     int vyA = ppA->getVelocityY();[m
+     int vyB = ppB->getVelocityY();[m
+ [m
+[32m+[m[32m    //A - B[m
+     if ((centerB - (widthB/2)) > (centerA + (widthA/2)))[m
+     {[m
+         if(!((vxA - vxB) == 0)) {[m
+[36m@@ -692,7 +694,7 @@[m [mvoid Physics::getCollisionsSpriteSprite(	World *world,[m
+                 else [m
+                 {[m
+                     //none of them are not going anywhere up, so they must collide on x axis[m
+[31m-                    addCollisionSpriteSprite(spriteA, spriteB);[m
+[32m+[m[32m                    //addCollisionSpriteSprite(spriteA, spriteB);[m
+                 }[m
+ [m
+             }[m
+[36m@@ -702,6 +704,49 @@[m [mvoid Physics::getCollisionsSpriteSprite(	World *world,[m
+             //there`s no movement , so they won`t collide[m
+         }[m
+     }[m
+[32m+[m[32m    //B - A[m[41m [m
+[32m+[m[32m    else[m[41m [m
+[32m+[m[32m    {[m
+[32m+[m[32m        if(!((vxB - vxA) == 0)) {[m
+[32m+[m[32m            int tx_first_contact = (centerA - (widthA/2) - (centerB + (widthB/2)))/(vxB - vxA);[m
+[32m+[m[32m            int tx_last_contact = (centerA + (widthA/2) - (centerB - (widthB/2)))/(vxB - vxA);[m
+[32m+[m[32m            if(tx_first_contact > percentageOfFrameRemaining)[m
+[32m+[m[32m            {[m
+[32m+[m[32m                //there`s no collision[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else[m
+[32m+[m[32m            {[m
+[32m+[m[32m                if(!(vyB - vyA) == 0)[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    //there`s contact on X axis, so let`s see if there`s contact on y axis[m
+[32m+[m[32m                    int ty_first_contact = (centerA - (heightA/2) - (centerB + (heightB/2)))/(vyB - vyA);[m
+[32m+[m[32m                    int ty_last_contact = (centerA + (heightA/2) - (centerB - (heightB/2)))/(vyB - vyA);[m
+[32m+[m[32m                    if(ty_first_contact > percentageOfFrameRemaining)[m
+[32m+[m[32m                    {[m
+[32m+[m[32m                        //there`s no collision[m
+[32m+[m[32m                    }[m
+[32m+[m[32m                    else[m
+[32m+[m[32m                    {[m
+[32m+[m[32m                        //there`s collision![m
+[32m+[m[32m                        //add collision to vector[m
+[32m+[m[32m                        addCollisionSpriteSprite(spriteB, spriteA);[m
+[32m+[m[32m                        //addCollisionSpriteSprite(spriteA, spriteB);[m
+[32m+[m[32m                    }[m
+[32m+[m[32m                }[m
+[32m+[m
+[32m+[m[32m                else[m[41m [m
+[32m+[m[32m                {[m
+[32m+[m[32m                    //none of them are not going anywhere up, so they must collide on x axis[m
+[32m+[m[32m                   // addCollisionSpriteSprite(spriteA, spriteB);[m
+[32m+[m[32m                }[m
+[32m+[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m        else[m[41m [m
+[32m+[m[32m        {[m
+[32m+[m[32m            //there`s no movement , so they won`t collide in X[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+ [m
+     // physics->addTileCollision(dynamicObject, testTile, tileX, tileY, (float)tileWidth, (float)tileHeight);[m
+ [m
+[36m@@ -872,8 +917,22 @@[m [mvoid Physics::performCollisionResponse(Collision *collision)[m
+     //PAULO- LASTHERE[m
+     if(collision->isCollisionWithSprite())[m
+     {[m
+[31m-        pp1->setVelocity(pp1->getVelocityX(), 0.0f);[m
+[31m-        pp2->setVelocity(pp2->getVelocityX(), 0.0f);[m
+[32m+[m[32m        if(collision->getCO1Edge() == LEFT_EDGE)[m
+[32m+[m[32m        {[m
+[32m+[m[32m            pp1->setVelocity(0, 0);[m
+[32m+[m[32m            pp2->setVelocity(0, 0);[m
+[32m+[m[32m          // text->writeDebugOutput("eeepa");[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        else if(collision->getCO1Edge() == RIGHT_EDGE)[m
+[32m+[m[32m        {[m
+[32m+[m[32m            /*pp1->setVelocity(-NUDGE_VELOCITY, pp1->getVelocityY());[m
+[32m+[m[32m            pp2->setVelocity(NUDGE_VELOCITY, pp2->getVelocityY());*/[m
+[32m+[m
+[32m+[m[32m            pp1->setVelocity(0, 0);[m
+[32m+[m[32m            pp2->setVelocity(0, 0);[m
+[32m+[m[32m            // text->writeDebugOutput("eeepa");[m
+[32m+[m[32m        }[m
+     }[m
+ [m
+ [m
+[1mdiff --git a/BugginOut/SimpleSideScrollerFramework/src/sssf/gsm/physics/Physics.h b/BugginOut/SimpleSideScrollerFramework/src/sssf/gsm/physics/Physics.h[m
+[1mindex ada1178..e06f949 100644[m
+[1m--- a/BugginOut/SimpleSideScrollerFramework/src/sssf/gsm/physics/Physics.h[m
+[1m+++ b/BugginOut/SimpleSideScrollerFramework/src/sssf/gsm/physics/Physics.h[m
+[36m@@ -18,6 +18,7 @@[m
+ #include "sssf\gsm\world\World.h"[m
+ #include "sssf\gsm\world\TiledLayer.h"[m
+ #include "sssf\gsm\world\Tile.h"[m
+[32m+[m[32m#include "sssf\text\GameText.h"[m
+ [m
+ const float EPSILON = 0.00001f;[m
+ const float DEFAULT_GRAVITY = 0.3f;[m
+[36m@@ -29,7 +30,9 @@[m [mclass Physics[m
+ {[m
+ //private:[m
+ public:[m
+[31m-	// THIS IS APPLIED TO EVERY SPRITE EVERY FRAME[m
+[32m+[m	[32m//GameText *text;[m
+[32m+[m[41m    [m
+[32m+[m[32m    // THIS IS APPLIED TO EVERY SPRITE EVERY FRAME[m
+ 	float gravity;[m
+ [m
+ 	// THIS IS THE TIME IN THIS FRAME THAT HAS PASSED SO FAR,[m
+[1mdiff --git a/BugginOut/Temp/BugginOut/Debug/BugginOut.log b/BugginOut/Temp/BugginOut/Debug/BugginOut.log[m
+[1mindex 86aa452..09d23e3 100644[m
+[1m--- a/BugginOut/Temp/BugginOut/Debug/BugginOut.log[m
+[1m+++ b/BugginOut/Temp/BugginOut/Debug/BugginOut.log[m
+[36m@@ -1,19 +1,16 @@[m
+[31m-﻿Build started 3/27/2014 3:46:54 AM.[m
+[32m+[m[32m﻿Build started 3/27/2014 9:51:11 PM.[m
+      1>Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\BugginOut\BugginOut.vcxproj" on node 2 (Build target(s)).[m
+      1>ClCompile:[m
+[31m-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\BugginOut\Debug\\" /Fd"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\BugginOut\Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\buggin_out\BugginOutDataLoader.cpp[m
+[31m-         BugginOutDataLoader.cpp[m
+[31m-       Link:[m
+[31m-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Apps\BugginOut\BugginOut.exe" /INCREMENTAL /NOLOGO d3d9.lib d3dx9.lib winmm.lib PoseurSpriteTypesImporter.lib SimpleSideScrollerFramework.lib tinyxml.lib TMXMapImporter.lib XMLFileImporter.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Apps\BugginOut\BugginOut.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Apps\BugginOut\BugginOut.lib" /MACHINE:X86 C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\BugginOut\Debug\BugginOut.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\BugginOut\Debug\BugginOutButtonEventHandler.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\BugginOut\Debug\BugginOutCollisionListener.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\BugginOut\Debug\BugginOutDataLoader.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\BugginOut\Debug\BugginOutKeyEventHandler.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\BugginOut\Debug\BugginOutTextGenerator.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\BugginOut\Debug\stdafx.obj[m
+[31m-         BugginOut.vcxproj -> C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Apps\BugginOut\BugginOut.exe[m
+[31m-     1>Done Building Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\BugginOut\BugginOut.vcxproj" (Build target(s)).[m
+[32m+[m[32m         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\BugginOut\Debug\\" /Fd"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\BugginOut\Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\buggin_out\BugginOutButtonEventHandler.cpp src\buggin_out\BugginOutCollisionListener.cpp[m
+[32m+[m[32m         BugginOutCollisionListener.cpp[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C2146: syntax error : missing ';' before identifier 'writer'[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int[m
+[32m+[m[32m         BugginOutButtonEventHandler.cpp[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C2146: syntax error : missing ';' before identifier 'writer'[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int[m
+[32m+[m[32m         Generating Code...[m
+[32m+[m[32m     1>Done Building Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\BugginOut\BugginOut.vcxproj" (Build target(s)) -- FAILED.[m
+ [m
+[31m-Build succeeded.[m
+[32m+[m[32mBuild FAILED.[m
+ [m
+[31m-Time Elapsed 00:00:04.32[m
+[32m+[m[32mTime Elapsed 00:00:04.26[m
+[1mdiff --git a/BugginOut/Temp/BugginOut/Debug/BugginOut.obj b/BugginOut/Temp/BugginOut/Debug/BugginOut.obj[m
+[1mindex 82ee416..9379bec 100644[m
+Binary files a/BugginOut/Temp/BugginOut/Debug/BugginOut.obj and b/BugginOut/Temp/BugginOut/Debug/BugginOut.obj differ
+[1mdiff --git a/BugginOut/Temp/BugginOut/Debug/BugginOutButtonEventHandler.obj b/BugginOut/Temp/BugginOut/Debug/BugginOutButtonEventHandler.obj[m
+[1mdeleted file mode 100644[m
+[1mindex 4c2c262..0000000[m
+Binary files a/BugginOut/Temp/BugginOut/Debug/BugginOutButtonEventHandler.obj and /dev/null differ
+[1mdiff --git a/BugginOut/Temp/BugginOut/Debug/BugginOutCollisionListener.obj b/BugginOut/Temp/BugginOut/Debug/BugginOutCollisionListener.obj[m
+[1mdeleted file mode 100644[m
+[1mindex 6cd07a5..0000000[m
+Binary files a/BugginOut/Temp/BugginOut/Debug/BugginOutCollisionListener.obj and /dev/null differ
+[1mdiff --git a/BugginOut/Temp/BugginOut/Debug/BugginOutDataLoader.obj b/BugginOut/Temp/BugginOut/Debug/BugginOutDataLoader.obj[m
+[1mindex 8231fb5..46fb901 100644[m
+Binary files a/BugginOut/Temp/BugginOut/Debug/BugginOutDataLoader.obj and b/BugginOut/Temp/BugginOut/Debug/BugginOutDataLoader.obj differ
+[1mdiff --git a/BugginOut/Temp/BugginOut/Debug/BugginOutKeyEventHandler.obj b/BugginOut/Temp/BugginOut/Debug/BugginOutKeyEventHandler.obj[m
+[1mindex 2df45a3..56b525e 100644[m
+Binary files a/BugginOut/Temp/BugginOut/Debug/BugginOutKeyEventHandler.obj and b/BugginOut/Temp/BugginOut/Debug/BugginOutKeyEventHandler.obj differ
+[1mdiff --git a/BugginOut/Temp/BugginOut/Debug/BugginOutTextGenerator.obj b/BugginOut/Temp/BugginOut/Debug/BugginOutTextGenerator.obj[m
+[1mindex 992bff8..c5b2fa9 100644[m
+Binary files a/BugginOut/Temp/BugginOut/Debug/BugginOutTextGenerator.obj and b/BugginOut/Temp/BugginOut/Debug/BugginOutTextGenerator.obj differ
+[1mdiff --git a/BugginOut/Temp/BugginOut/Debug/CL.write.1.tlog b/BugginOut/Temp/BugginOut/Debug/CL.write.1.tlog[m
+[1mindex e86daf7..0676ec9 100644[m
+Binary files a/BugginOut/Temp/BugginOut/Debug/CL.write.1.tlog and b/BugginOut/Temp/BugginOut/Debug/CL.write.1.tlog differ
+[1mdiff --git a/BugginOut/Temp/BugginOut/Debug/link.read.1.tlog b/BugginOut/Temp/BugginOut/Debug/link.read.1.tlog[m
+[1mindex 6f43ccd..36c1e35 100644[m
+Binary files a/BugginOut/Temp/BugginOut/Debug/link.read.1.tlog and b/BugginOut/Temp/BugginOut/Debug/link.read.1.tlog differ
+[1mdiff --git a/BugginOut/Temp/BugginOut/Debug/vc110.idb b/BugginOut/Temp/BugginOut/Debug/vc110.idb[m
+[1mindex 953e602..d2de37e 100644[m
+Binary files a/BugginOut/Temp/BugginOut/Debug/vc110.idb and b/BugginOut/Temp/BugginOut/Debug/vc110.idb differ
+[1mdiff --git a/BugginOut/Temp/BugginOut/Debug/vc110.pdb b/BugginOut/Temp/BugginOut/Debug/vc110.pdb[m
+[1mindex 5bfc9f2..22274ee 100644[m
+Binary files a/BugginOut/Temp/BugginOut/Debug/vc110.pdb and b/BugginOut/Temp/BugginOut/Debug/vc110.pdb differ
+[1mdiff --git a/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/PoseurSpriteTypesImporter.log b/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/PoseurSpriteTypesImporter.log[m
+[1mindex b875dbb..d90c9fe 100644[m
+[1m--- a/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/PoseurSpriteTypesImporter.log[m
+[1m+++ b/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/PoseurSpriteTypesImporter.log[m
+[36m@@ -1,5 +1,5 @@[m
+[31m-﻿Build started 3/27/2014 3:33:09 AM.[m
+[31m-     1>Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\PoseurSpriteTypesImporter\PoseurSpriteTypesImporter.vcxproj" on node 5 (Build target(s)).[m
+[32m+[m[32m﻿Build started 3/27/2014 9:42:35 PM.[m
+[32m+[m[32m     1>Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\PoseurSpriteTypesImporter\PoseurSpriteTypesImporter.vcxproj" on node 3 (Build target(s)).[m
+      1>ClCompile:[m
+          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\PoseurSpriteTypesImporter\Debug\\" /Fd"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\PoseurSpriteTypesImporter\Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\psti\PoseurSpriteTypesImporter.cpp[m
+          PoseurSpriteTypesImporter.cpp[m
+[36m@@ -11,4 +11,4 @@[m
+ [m
+ Build succeeded.[m
+ [m
+[31m-Time Elapsed 00:00:07.31[m
+[32m+[m[32mTime Elapsed 00:00:06.07[m
+[1mdiff --git a/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/PoseurSpriteTypesImporter.obj b/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/PoseurSpriteTypesImporter.obj[m
+[1mindex b0079a7..7f194a3 100644[m
+Binary files a/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/PoseurSpriteTypesImporter.obj and b/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/PoseurSpriteTypesImporter.obj differ
+[1mdiff --git a/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/vc110.idb b/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/vc110.idb[m
+[1mindex 3480356..3d1a55a 100644[m
+Binary files a/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/vc110.idb and b/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/vc110.idb differ
+[1mdiff --git a/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/vc110.pdb b/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/vc110.pdb[m
+[1mindex 9f88cb9..0ee271e 100644[m
+Binary files a/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/vc110.pdb and b/BugginOut/Temp/PoseurSpriteTypesImporter/Debug/vc110.pdb differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Button.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Button.obj[m
+[1mindex b63f992..b2ebf56 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Button.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Button.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/CL.read.1.tlog b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/CL.read.1.tlog[m
+[1mindex 4f70b70..e6d9932 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/CL.read.1.tlog and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/CL.read.1.tlog differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/CL.write.1.tlog b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/CL.write.1.tlog[m
+[1mindex 5c0193a..de27762 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/CL.write.1.tlog and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/CL.write.1.tlog differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Cursor.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Cursor.obj[m
+[1mindex 160d5f7..95c6a04 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Cursor.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Cursor.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/DirectXGraphics.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/DirectXGraphics.obj[m
+[1mindex 6ed7323..3577ba8 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/DirectXGraphics.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/DirectXGraphics.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/DirectXTextureManager.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/DirectXTextureManager.obj[m
+[1mindex caf117a..eb2b275 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/DirectXTextureManager.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/DirectXTextureManager.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Game.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Game.obj[m
+[1mdeleted file mode 100644[m
+[1mindex f82f708..0000000[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Game.obj and /dev/null differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameGUI.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameGUI.obj[m
+[1mdeleted file mode 100644[m
+[1mindex d1be268..0000000[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameGUI.obj and /dev/null differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameGraphics.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameGraphics.obj[m
+[1mindex 1ba059a..5de6fc8 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameGraphics.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameGraphics.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameInput.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameInput.obj[m
+[1mindex 84b9de1..8ad3382 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameInput.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameInput.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameStateManager.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameStateManager.obj[m
+[1mindex a6e1aa4..36aee18 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameStateManager.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameStateManager.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameText.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameText.obj[m
+[1mindex d090a6e..7422098 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameText.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/GameText.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Physics.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Physics.obj[m
+[1mdeleted file mode 100644[m
+[1mindex 50cd25d..0000000[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/Physics.obj and /dev/null differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/RandomFloatingBot.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/RandomFloatingBot.obj[m
+[1mdeleted file mode 100644[m
+[1mindex a8ca317..0000000[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/RandomFloatingBot.obj and /dev/null differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/RandomJumpingBot.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/RandomJumpingBot.obj[m
+[1mdeleted file mode 100644[m
+[1mindex 4c08cca..0000000[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/RandomJumpingBot.obj and /dev/null differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/ScreenGUI.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/ScreenGUI.obj[m
+[1mindex a1acfb8..b985f92 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/ScreenGUI.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/ScreenGUI.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/SimpleSideScrollerFramework.log b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/SimpleSideScrollerFramework.log[m
+[1mindex 910f2f5..5f8dfce 100644[m
+[1m--- a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/SimpleSideScrollerFramework.log[m
+[1m+++ b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/SimpleSideScrollerFramework.log[m
+[36m@@ -1,56 +1,59 @@[m
+[31m-﻿Build started 3/27/2014 3:43:59 AM.[m
+[31m-     1>Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\SimpleSideScrollerFramework\SimpleSideScrollerFramework.vcxproj" on node 2 (Build target(s)).[m
+[32m+[m[32m﻿Build started 3/27/2014 9:42:35 PM.[m
+[32m+[m[32m     1>Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\SimpleSideScrollerFramework\SimpleSideScrollerFramework.vcxproj" on node 3 (Build target(s)).[m
+      1>ClCompile:[m
+[31m-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\\" /Fd"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\sssf\gsm\physics\Physics.cpp[m
+[32m+[m[32m         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\\" /Fd"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\sssf\game\Game.cpp src\sssf\graphics\GameGraphics.cpp src\sssf\gsm\ai\bots\RandomFloatingBot.cpp src\sssf\gsm\ai\bots\RandomJumpingBot.cpp src\sssf\gsm\physics\Physics.cpp src\sssf\gsm\sprite\SpriteManager.cpp src\sssf\gsm\state\GameStateManager.cpp src\sssf\gsm\world\SparseLayer.cpp src\sssf\gsm\world\TiledLayer.cpp src\sssf\gsm\world\World.cpp src\sssf\gui\Button.cpp src\sssf\gui\Cursor.cpp src\sssf\gui\GameGUI.cpp src\sssf\gui\ScreenGUI.cpp src\sssf\input\GameInput.cpp src\sssf\platforms\DirectX\DirectXGraphics.cpp src\sssf\platforms\DirectX\DirectXTextureManager.cpp src\sssf\platforms\Windows\WindowsInput.cpp src\sssf\platforms\Windows\WindowsOS.cpp src\sssf\text\GameText.cpp[m
+[32m+[m[32m         WindowsInput.cpp[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C2146: syntax error : missing ';' before identifier 'writer'[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int[m
+[32m+[m[32m         GameGUI.cpp[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C2146: syntax error : missing ';' before identifier 'writer'[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int[m
+[32m+[m[32m         SparseLayer.cpp[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C2146: syntax error : missing ';' before identifier 'writer'[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int[m
+          Physics.cpp[m
+[31m-     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(649): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C2146: syntax error : missing ';' before identifier 'writer'[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(297): error C2065: 'text' : undeclared identifier[m
+      1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(650): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+[31m-     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(652): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(651): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+      1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(653): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+[31m-     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(655): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(654): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+      1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(656): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+[31m-     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(658): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(657): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+      1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(659): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+[31m-     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(661): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(660): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+      1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(662): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+[31m-       Lib:[m
+[31m-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Common\SimpleSideScrollerFramework.lib" /NOLOGO C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\GameDataLoader.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\Game.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\WStringTable.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\GameGraphics.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\RenderList.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\TextureManager.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\BotRecycler.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\RandomFloatingBot.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\RandomJumpingBot.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\AABB.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\CollidableObject.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\Physics.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\AnimatedSprite.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\AnimatedSpriteType.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\SpriteManager.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\GameStateManager.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\SparseLayer.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\TiledLayer.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\World.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\Button.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\Cursor.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\GameGUI.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\ScreenGUI.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\Viewport.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\GameInput.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\DirectXGraphics.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\DirectXTextureManager.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\WindowsInput.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\WindowsOS.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\WindowsTimer.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\BufferedTextFileReader.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\GameText.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\TextFileWriter.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\SimpleSideScrollerFramework\Debug\stdafx.obj[m
+[31m-         SimpleSideScrollerFramework.vcxproj -> C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Common\SimpleSideScrollerFramework.lib[m
+[31m-     1>Done Building Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\SimpleSideScrollerFramework\SimpleSideScrollerFramework.vcxproj" (Build target(s)).[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\gsm\physics\physics.cpp(663): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data[m
+[32m+[m[32m         RandomJumpingBot.cpp[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C2146: syntax error : missing ';' before identifier 'writer'[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int[m
+[32m+[m[32m         RandomFloatingBot.cpp[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C2146: syntax error : missing ';' before identifier 'writer'[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int[m
+[32m+[m[32m         Game.cpp[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C2146: syntax error : missing ';' before identifier 'writer'[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int[m
+[32m+[m[32m         Generating Code...[m
+[32m+[m[32m         Compiling...[m
+[32m+[m[32m         GameGraphics.cpp[m
+[32m+[m[32m         Generating Code...[m
+[32m+[m[32m         Compiling...[m
+[32m+[m[32m         GameText.cpp[m
+[32m+[m[32m         WindowsOS.cpp[m
+[32m+[m[32m         DirectXTextureManager.cpp[m
+[32m+[m[32m         DirectXGraphics.cpp[m
+[32m+[m[32m         GameInput.cpp[m
+[32m+[m[32m         ScreenGUI.cpp[m
+[32m+[m[32m         Cursor.cpp[m
+[32m+[m[32m         Button.cpp[m
+[32m+[m[32m         World.cpp[m
+[32m+[m[32m         TiledLayer.cpp[m
+[32m+[m[32m         GameStateManager.cpp[m
+[32m+[m[32m         SpriteManager.cpp[m
+[32m+[m[32m         Generating Code...[m
+[32m+[m[32m     1>Done Building Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\SimpleSideScrollerFramework\SimpleSideScrollerFramework.vcxproj" (Build target(s)) -- FAILED.[m
+ [m
+[31m-Build succeeded.[m
+[32m+[m[32mBuild FAILED.[m
+ [m
+[31m-Time Elapsed 00:00:03.63[m
+[32m+[m[32mTime Elapsed 00:00:47.60[m
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/SparseLayer.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/SparseLayer.obj[m
+[1mdeleted file mode 100644[m
+[1mindex 41b3939..0000000[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/SparseLayer.obj and /dev/null differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/SpriteManager.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/SpriteManager.obj[m
+[1mindex 1c1b29b..ff1da74 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/SpriteManager.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/SpriteManager.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/TiledLayer.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/TiledLayer.obj[m
+[1mindex c330e42..d829648 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/TiledLayer.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/TiledLayer.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/WindowsInput.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/WindowsInput.obj[m
+[1mdeleted file mode 100644[m
+[1mindex 67ecf24..0000000[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/WindowsInput.obj and /dev/null differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/WindowsOS.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/WindowsOS.obj[m
+[1mindex 0c10f6b..86fb9ac 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/WindowsOS.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/WindowsOS.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/World.obj b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/World.obj[m
+[1mindex 0cccc79..d882139 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/World.obj and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/World.obj differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/vc110.idb b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/vc110.idb[m
+[1mindex 7a1e98c..7c62b1f 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/vc110.idb and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/vc110.idb differ
+[1mdiff --git a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/vc110.pdb b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/vc110.pdb[m
+[1mindex 207f6a9..a96fa28 100644[m
+Binary files a/BugginOut/Temp/SimpleSideScrollerFramework/Debug/vc110.pdb and b/BugginOut/Temp/SimpleSideScrollerFramework/Debug/vc110.pdb differ
+[1mdiff --git a/BugginOut/Temp/TMXMapImporter/Debug/CL.write.1.tlog b/BugginOut/Temp/TMXMapImporter/Debug/CL.write.1.tlog[m
+[1mindex 8e21d8f..51dc1d1 100644[m
+Binary files a/BugginOut/Temp/TMXMapImporter/Debug/CL.write.1.tlog and b/BugginOut/Temp/TMXMapImporter/Debug/CL.write.1.tlog differ
+[1mdiff --git a/BugginOut/Temp/TMXMapImporter/Debug/TMXMapImporter.log b/BugginOut/Temp/TMXMapImporter/Debug/TMXMapImporter.log[m
+[1mindex 629fb2c..9180f43 100644[m
+[1m--- a/BugginOut/Temp/TMXMapImporter/Debug/TMXMapImporter.log[m
+[1m+++ b/BugginOut/Temp/TMXMapImporter/Debug/TMXMapImporter.log[m
+[36m@@ -1,16 +1,14 @@[m
+[31m-﻿Build started 3/27/2014 3:33:09 AM.[m
+[31m-     1>Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\TMXMapImporter\TMXMapImporter.vcxproj" on node 4 (Build target(s)).[m
+[32m+[m[32m﻿Build started 3/27/2014 9:42:35 PM.[m
+[32m+[m[32m     1>Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\TMXMapImporter\TMXMapImporter.vcxproj" on node 2 (Build target(s)).[m
+      1>ClCompile:[m
+          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\TMXMapImporter\Debug\\" /Fd"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\TMXMapImporter\Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\tmxmi\TMXMapImporter.cpp[m
+          TMXMapImporter.cpp[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C2146: syntax error : missing ';' before identifier 'writer'[m
+[32m+[m[32m     1>c:\users\ph\documents\homework_4\bugginout\bugginout\simplesidescrollerframework\src\sssf\text\gametext.h(50): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int[m
+      1>c:\users\ph\documents\homework_4\bugginout\bugginout\tmxmapimporter\src\tmxmi\tmxmapimporter.cpp(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline[m
+      1>c:\users\ph\documents\homework_4\bugginout\bugginout\tmxmapimporter\src\tmxmi\tmxmapimporter.cpp(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline[m
+[31m-       Lib:[m
+[31m-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Common\TMXMapImporter.lib" /NOLOGO C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\TMXMapImporter\Debug\TMXMapImporter.obj[m
+[31m-         C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\TMXMapImporter\Debug\stdafx.obj[m
+[31m-         TMXMapImporter.vcxproj -> C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Common\TMXMapImporter.lib[m
+[31m-     1>Done Building Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\TMXMapImporter\TMXMapImporter.vcxproj" (Build target(s)).[m
+[32m+[m[32m     1>Done Building Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\TMXMapImporter\TMXMapImporter.vcxproj" (Build target(s)) -- FAILED.[m
+ [m
+[31m-Build succeeded.[m
+[32m+[m[32mBuild FAILED.[m
+ [m
+[31m-Time Elapsed 00:00:07.71[m
+[32m+[m[32mTime Elapsed 00:00:04.67[m
+[1mdiff --git a/BugginOut/Temp/TMXMapImporter/Debug/TMXMapImporter.obj b/BugginOut/Temp/TMXMapImporter/Debug/TMXMapImporter.obj[m
+[1mdeleted file mode 100644[m
+[1mindex 51f4712..0000000[m
+Binary files a/BugginOut/Temp/TMXMapImporter/Debug/TMXMapImporter.obj and /dev/null differ
+[1mdiff --git a/BugginOut/Temp/TMXMapImporter/Debug/vc110.idb b/BugginOut/Temp/TMXMapImporter/Debug/vc110.idb[m
+[1mindex 9537b9e..f2b9573 100644[m
+Binary files a/BugginOut/Temp/TMXMapImporter/Debug/vc110.idb and b/BugginOut/Temp/TMXMapImporter/Debug/vc110.idb differ
+[1mdiff --git a/BugginOut/Temp/TMXMapImporter/Debug/vc110.pdb b/BugginOut/Temp/TMXMapImporter/Debug/vc110.pdb[m
+[1mindex ff56085..66434e2 100644[m
+Binary files a/BugginOut/Temp/TMXMapImporter/Debug/vc110.pdb and b/BugginOut/Temp/TMXMapImporter/Debug/vc110.pdb differ
