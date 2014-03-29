@@ -53,6 +53,7 @@ private:
 	// ALSO KNOWS THE CURRENT GAME STATE
 	GameStateManager	*gsm;
 
+
 	// MANAGES ALL THE GUIS
 	GameGUI				*gui;
 
@@ -72,6 +73,8 @@ private:
 	// THAT IS CURRENTLY BEING USED
 	wstring				currentLevelFileName;
 
+    int cur_life;
+
 public:
 	// INLINED ACCESSOR METHODS - THE REAL THINGS
 	GameStateManager*	getGSM()				{ return gsm;								}
@@ -84,7 +87,8 @@ public:
 	GameInput*			getInput()				{ return input;								}
 	GameOS*				getOS()					{ return os;								}
 	GameTimer*			getTimer()				{ return timer;								}
-
+    void setCurrentLife(int current) {cur_life = current;}
+    int getCurrentLife() {return cur_life;}
 	// AND FOR GETTING THE NAME OF THE FILE USED FOR LOADING THIS LEVEL
 	wstring				getCurrentLevelFileName()	{ return currentLevelFileName;			}
 

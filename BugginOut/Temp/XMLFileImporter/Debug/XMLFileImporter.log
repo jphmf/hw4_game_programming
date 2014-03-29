@@ -1,5 +1,5 @@
-﻿Build started 3/24/2014 8:22:09 PM.
-     1>Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\XMLFileImporter\XMLFileImporter.vcxproj" on node 5 (Build target(s)).
+﻿Build started 3/28/2014 8:51:21 PM.
+     1>Project "C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\XMLFileImporter\XMLFileImporter.vcxproj" on node 4 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\XMLFileImporter\Debug\\" /Fd"C:\Users\ph\Documents\Homework_4\BugginOut\BugginOut\Temp\XMLFileImporter\Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\xmlfi\XMLFileImporter.cpp src\xmlfi_VS\stdafx.cpp
          stdafx.cpp
@@ -13,4 +13,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.98
+Time Elapsed 00:00:03.62

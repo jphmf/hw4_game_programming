@@ -21,6 +21,7 @@
 #include "sssf\graphics\RenderList.h"
 #include "sssf\gui\Button.h"
 #include "sssf\gui\OverlayImage.h"
+#include "sssf\gui\Life.h"
 
 class ScreenGUI
 {
@@ -34,13 +35,20 @@ private:
 	// SCREEN NAME, LIKE "MAIN MENU"
 	wchar_t				*screenName;
 
+    list<Life*>     *life;
+
+    int current_life;
+
 public:
 	// INLINED ACCESSOR METHODS
 	int getNumButtons()			{ return buttons->size();		}
 	int getNumOverlayImages()	{ return overlayImages->size(); }
+     int getCurrentLife() {return current_life;}
+	void setCurrentLife(int current) {current_life = current;}
 	wstring getScreenName()			{ return screenName;			}
-
-	// INLINED MUTATOR METHODS
+    void addLifebar(Life *lifebar);
+   
+    // INLINED MUTATOR METHODS
 	void setScreenName(wchar_t *initScreenName)
 	{
 		screenName = initScreenName;
@@ -49,9 +57,10 @@ public:
 	// METHODS DEFINED IN ScreenGUI.cpp
 	ScreenGUI();
 	~ScreenGUI();
+    
 	void addButton(Button *buttonToAdd);
 	void addOverlayImage(OverlayImage *imageToAdd);
-	void addRenderItemsToRenderList(RenderList *renderList);
+	void addRenderItemsToRenderList(RenderList *renderList, int current_life);
 	bool fireButtonCommand(Game *game);
 	void registerButtonEventHandler(ButtonEventHandler *eventHandler);
 	void updateAllButtons(long mouseX, long mouseY);

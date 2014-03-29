@@ -49,6 +49,20 @@ static const wstring	W_QUIT_IMAGE_PATH		= L"data/gui/buttons/quit.png";
 static const wstring	W_QUIT_IMAGE_MO_PATH	= L"data/gui/buttons/quit_mo.png";
 static const wstring	W_WIN_IMAGE_PATH	    = L"data/gui/overlays/cookiemonster.png";
 
+//lifebar
+
+static const wstring	W_IMAGE_LIFEBAR0	    = L"data/gui/lifebar/image0.png";
+static const wstring	W_IMAGE_LIFEBAR1	    = L"data/gui/lifebar/image1.png";
+static const wstring	W_IMAGE_LIFEBAR2	    = L"data/gui/lifebar/image2.png";
+static const wstring	W_IMAGE_LIFEBAR3        = L"data/gui/lifebar/image3.png";
+static const wstring	W_IMAGE_LIFEBAR4	    = L"data/gui/lifebar/image4.png";
+static const wstring	W_IMAGE_LIFEBAR5	    = L"data/gui/lifebar/image5.png";
+static const wstring	W_IMAGE_LIFEBAR6	    = L"data/gui/lifebar/image6.png";
+static const wstring	W_IMAGE_LIFEBAR7	    = L"data/gui/lifebar/image7.png";
+static const wstring	W_IMAGE_LIFEBAR8	    = L"data/gui/lifebar/image8.png";
+static const wstring	W_IMAGE_LIFEBAR9	    = L"data/gui/lifebar/image9.png";
+static const wstring	W_IMAGE_LIFEBAR10	    = L"data/gui/lifebar/image10.png";
+
 // FOR OUR SPRITE
 static const wstring	SPRITE_TYPES_DIR = L"data/sprite_types/";
 static const wstring	SPRITE_TYPES_LIST = SPRITE_TYPES_DIR + L"sprite_type_list.xml";

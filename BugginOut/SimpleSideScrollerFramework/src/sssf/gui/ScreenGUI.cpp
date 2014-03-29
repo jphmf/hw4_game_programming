@@ -13,6 +13,7 @@
 #include "sssf\graphics\RenderList.h"
 #include "sssf\gui\Button.h"
 #include "sssf\gui\ScreenGUI.h"
+#include "sssf\gui\Life.h"
 
 /*
 	ScreenGUI - Default Constructor, it initializes the data structures
@@ -22,8 +23,10 @@
 ScreenGUI::ScreenGUI()
 {
 	buttons = new list<Button*>();
+    life = new list<Life*>();
 	overlayImages = new list<OverlayImage*>();
 	screenName = NULL;
+    current_life = 0;
 }
 
 /*
@@ -47,6 +50,10 @@ void ScreenGUI::addButton(Button *buttonToAdd)
 	buttons->push_back(buttonToAdd);
 }
 
+void ScreenGUI::addLifebar(Life *lifebar)
+{
+	life->push_back(lifebar);
+}
 /*
 	addOverlayImage - This method adds a constructured OverlayImage
 	to this GUI screen.
@@ -62,7 +69,7 @@ void ScreenGUI::addOverlayImage(OverlayImage *imageToAdd)
 	through all the GUI elements, the buttons and the overlay images,
 	and for each it generates a RenderItem and adds it to the list.
 */
-void ScreenGUI::addRenderItemsToRenderList(RenderList *renderList)
+void ScreenGUI::addRenderItemsToRenderList(RenderList *renderList, int cf)
 {
 	// FIRST ADD THE OVERLAY IMAGES TO THE RENDER LIST
 	// FOR THIS WE'LL USE AN ITERATOR
@@ -118,6 +125,31 @@ void ScreenGUI::addRenderItemsToRenderList(RenderList *renderList)
 		// ADVANCE THE ITERATOR
 		buttonIterator++;
 	}
+
+
+  //  int id_lifebar = 0;
+    
+    list<Life*>::iterator lifeIterator;
+	lifeIterator = life->begin();
+    while(lifeIterator != life->end())
+    {
+        Life* lifeBarToRender = (*lifeIterator);
+
+
+        int id_to_render = cf % ((lifeBarToRender->getFinalId() - lifeBarToRender->getInitialId())+1); 
+        //int id_to_render = lifeBarToRender->getInitialId();
+
+        renderList->addRenderItem(  id_to_render + lifeBarToRender->getInitialId(), 
+            lifeBarToRender->getX(),
+            lifeBarToRender->getY(),
+            lifeBarToRender->getZ(),
+            lifeBarToRender->getAlpha(),
+            lifeBarToRender->getWidth(),
+            lifeBarToRender->getHeight());
+        
+        lifeIterator++;
+    }
+    
 }
 
 /*

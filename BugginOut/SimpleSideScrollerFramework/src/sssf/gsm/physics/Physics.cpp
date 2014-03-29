@@ -291,16 +291,16 @@ void Physics::update(Game *game)
 
         //PAULO- TESTS IN PAIR
         CollidableObject *sprite1 = (*iteratorSprite);
-        
-            advance(iteratorSprite,1);
-            if((iteratorSprite != sortedSweptShapes[LEFT_EDGE]->end()))
-            {
 
-                CollidableObject *sprite2 = (*iteratorSprite);
-                //prepSpriteForCollisionTesting(world, sprite);
-                //getAllTileCollisionsForAGivenSprite(world, sprite, 1.0f);
-               
-                    getCollisionsSpriteSprite(world, sprite1, sprite2, 1.0f);
+        advance(iteratorSprite,1);
+        if((iteratorSprite != sortedSweptShapes[LEFT_EDGE]->end()))
+        {
+
+            CollidableObject *sprite2 = (*iteratorSprite);
+            //prepSpriteForCollisionTesting(world, sprite);
+            //getAllTileCollisionsForAGivenSprite(world, sprite, 1.0f);
+
+            getCollisionsSpriteSprite(world, sprite1, sprite2, 1.0f);
 
         }
 
@@ -673,9 +673,13 @@ void Physics::getCollisionsSpriteSprite(	World *world,
     // A - B
     if ((centerXB - (widthB/2)) > (centerXA + (widthA/2)))
     {
+        //if(!((vxA - vxB) == 0)) {
+        // if(boundingVolumeA->overlapsX(boundingVolumeB)){
+
         if(!((vxA - vxB) == 0)) {
             int tx_first_contact = abs(((centerXB - (widthB/2)) - (centerXA + (widthA/2)))/(vxA - vxB));
             int tx_last_contact = abs(((centerXB + (widthB/2)) - (centerXA - (widthA/2)))/(vxA - vxB));
+
             if(tx_first_contact > percentageOfFrameRemaining)
             {
                 //there`s no collision
@@ -710,11 +714,12 @@ void Physics::getCollisionsSpriteSprite(	World *world,
 
                 }
 
+                // }
             }
         }
         else 
         {
-           //the situation here is kind of special
+            //the situation here is kind of special
             //they could be stopped in X, or they could be walking in the same velocity
             //in the second situation, we are cool because they wouldn`t collide anyway
             //in the firt situation, they could colide (one on top of the other)
@@ -729,7 +734,7 @@ void Physics::getCollisionsSpriteSprite(	World *world,
 
 
 
-           
+
         }
     }
     // B - A
@@ -737,7 +742,7 @@ void Physics::getCollisionsSpriteSprite(	World *world,
     {
         if(!((vxB - vxA) == 0)) {
             int tx_first_contact = abs(((centerXA - (widthA/2)) - (centerXB + (widthB/2)))/(vxB - vxA));
-            
+
             //int tx_first_contact = boundingVolumeB->overlapsX(boundingVolumeA);
             int tx_last_contact = abs(((centerXA + (widthA/2)) - (centerXB - (widthB/2)))/(vxB - vxA));
             if(tx_first_contact > percentageOfFrameRemaining)
@@ -778,7 +783,7 @@ void Physics::getCollisionsSpriteSprite(	World *world,
         else 
         {
             //there`s no movement , so they won`t collide
-           // boundingVolumeA->setWidth(boundingVolumeA->getWidth() *2);
+            // boundingVolumeA->setWidth(boundingVolumeA->getWidth() *2);
             if(boundingVolumeB->myOverlapsX(boundingVolumeA))//&& !(boundingVolumeB->overlapsY(boundingVolumeA)))
             {
                 addCollisionSpriteSprite(spriteA, spriteB);
@@ -959,9 +964,15 @@ void Physics::performCollisionResponse(Collision *collision)
         if((collision->getCO1Edge() == RIGHT_EDGE ))//|| (collision->getCO1Edge() == LEFT_EDGE))
         {
 
-            
-                pp1->setVelocity(-pp1->getVelocityX() - 30, pp1->getVelocityY());
-            
+            pp1->setVelocity(-pp1->getVelocityX() - 30, pp1->getVelocityY());
+
+            //if(!co2->getIfMonster())
+            //{
+            //    //pp1->setVelocity(-pp1->getVelocityX() - 30, pp2->getVelocityY());
+            //    pp2->setVelocity(100.0f, pp2->getVelocityY());
+            //}
+
+
             //pp2->setVelocity(0.0f, pp2->getVelocityY());
 
         }

@@ -36,6 +36,7 @@
     <ClCompile Include="src\sssf\gui\Button.cpp" />
     <ClCompile Include="src\sssf\gui\Cursor.cpp" />
     <ClCompile Include="src\sssf\gui\GameGUI.cpp" />
+    <ClCompile Include="src\sssf\gui\Life.cpp" />
     <ClCompile Include="src\sssf\gui\ScreenGUI.cpp" />
     <ClCompile Include="src\sssf\gui\Viewport.cpp" />
     <ClCompile Include="src\sssf\input\GameInput.cpp" />
@@ -81,6 +82,7 @@
     <ClInclude Include="src\sssf\gui\Button.h" />
     <ClInclude Include="src\sssf\gui\Cursor.h" />
     <ClInclude Include="src\sssf\gui\GameGUI.h" />
+    <ClInclude Include="src\sssf\gui\Life.h" />
     <ClInclude Include="src\sssf\gui\OverlayImage.h" />
     <ClInclude Include="src\sssf\gui\ScreenGUI.h" />
     <ClInclude Include="src\sssf\gui\Viewport.h" />

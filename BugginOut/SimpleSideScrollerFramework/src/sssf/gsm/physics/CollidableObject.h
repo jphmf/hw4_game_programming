@@ -31,7 +31,7 @@ protected:
 	unsigned int collisionEdge;
 
 public:
-	CollidableObject()	{numberOfJumps = 1;}
+	CollidableObject()	{numberOfJumps = 1;hp=100;}
 	~CollidableObject()	{}
 
 	// CollidableObject.cpp METHODS

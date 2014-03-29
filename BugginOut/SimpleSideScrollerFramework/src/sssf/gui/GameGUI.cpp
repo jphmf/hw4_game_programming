@@ -64,13 +64,13 @@ void GameGUI::addRenderItemsToRenderList(Game *game)
 	if (gsm->isAppActive())
 	{
 		// CASCADE THIS CALL TO THE APPROPRIATE SCREEN
-		screens.at(gameState)->addRenderItemsToRenderList(guiRenderList);
+        screens.at(gameState)->addRenderItemsToRenderList(guiRenderList, game->getCurrentLife());
 	}
 
     if(gsm->isGameWon())
     {
     
-        screens.at(gameState)->addRenderItemsToRenderList(guiRenderList);
+        screens.at(gameState)->addRenderItemsToRenderList(guiRenderList, game->getCurrentLife());
     }
 
 	// CASCADE THIS CALL TO THE CURSOR, IF THERE IS ONE
@@ -146,3 +146,4 @@ void GameGUI::updateGUIState(long mouseX, long mouseY, GameState gameState)
 		gui->updateAllButtons(mouseX, mouseY);
 	}
 }
+

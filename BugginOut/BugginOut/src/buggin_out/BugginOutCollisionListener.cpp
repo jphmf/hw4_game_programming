@@ -29,6 +29,7 @@ void BugginOutCollisionListener::respondToCollision(Game *game, Collision *colli
               if(sprite1->getHp() > 0)
                 {
                     sprite1->setHp(sprite1->getHp() -10);
+                    game->setCurrentLife(sprite1->getHp());
                 }
                 
                 else
@@ -42,6 +43,7 @@ void BugginOutCollisionListener::respondToCollision(Game *game, Collision *colli
              if(sprite2->getHp() > 0)
                 {
                     sprite2->setHp(sprite2->getHp() -10);
+                     game->setCurrentLife(sprite2->getHp());
                 }
                 
                 else

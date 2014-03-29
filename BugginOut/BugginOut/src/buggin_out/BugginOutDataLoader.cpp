@@ -182,6 +182,7 @@ void BugginOutDataLoader::loadWorld(Game *game, wstring levelInitFile)
 	physics->setGravity(W_GRAVITY);
 	SpriteManager *spriteManager = gsm->getSpriteManager();
 	AnimatedSprite *player = spriteManager->getPlayer();
+    player->setIfMonster(false);
 	physics->addCollidableObject(player);
 
 	// NOTE THAT RED BOX MAN IS SPRITE ID 2
@@ -237,8 +238,8 @@ void BugginOutDataLoader::makeRandomJumpingBot(Game *game, AnimatedSpriteType *r
 	SpriteManager *spriteManager = game->getGSM()->getSpriteManager();
 	Physics *physics = game->getGSM()->getPhysics();
 	//RandomJumpingBot *bot = new RandomJumpingBot(physics, 30, 120, 40);
-    RandomJumpingBot *bot = new RandomJumpingBot(physics, 30, 120,20);
-    
+    RandomJumpingBot *bot = new RandomJumpingBot(physics, 30, 120,25);
+    bot->setIfMonster(true);
 	physics->addCollidableObject(bot);
 	PhysicalProperties *pp = bot->getPhysicalProperties();
 	pp->setPosition(initX, initY);
@@ -445,6 +446,27 @@ void BugginOutDataLoader::initInGameGUI(GameGUI *gui, DirectXTextureManager *gui
 	unsigned int normalTextureID = guiTextureManager->loadTexture(W_QUIT_IMAGE_PATH);
 	unsigned int mouseOverTextureID = guiTextureManager->loadTexture(W_QUIT_IMAGE_MO_PATH);
 
+
+    int image0 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR0);
+    int image1 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR1);
+    int image2 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR2);
+    int image3 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR3);
+    int image4 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR4);
+    int image5 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR5);
+    int image6 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR6);
+    int image7 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR7);
+    int image8 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR8);
+    int image9 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR9);
+    int image10 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR10);
+    
+    Life* lifebar= new Life();
+    lifebar->initLife(image0, image10, 600, 20, 0, 255, 310, 35);
+
+    inGameGUI->addLifebar(lifebar);
+    
+    
+
+
 	// INIT THE QUIT BUTTON
 	Button *buttonToAdd = new Button();
 	buttonToAdd->initButton(normalTextureID, 
@@ -458,6 +480,8 @@ void BugginOutDataLoader::initInGameGUI(GameGUI *gui, DirectXTextureManager *gui
 							false,
 							W_QUIT_COMMAND);
 	inGameGUI->addButton(buttonToAdd);
+
+
 
 	// AND LET'S ADD OUR SCREENS
 	gui->addScreenGUI(GS_GAME_IN_PROGRESS,	inGameGUI);

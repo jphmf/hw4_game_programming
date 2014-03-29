@@ -44,6 +44,7 @@ Game::Game()
 	gsm = new GameStateManager();
 	gui = new GameGUI();
 	text = new GameText();
+    cur_life = 0;
 }
 
 /*
