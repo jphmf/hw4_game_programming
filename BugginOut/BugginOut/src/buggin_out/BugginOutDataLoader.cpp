@@ -215,21 +215,21 @@ void BugginOutDataLoader::loadWorld(Game *game, wstring levelInitFile)
 
 	// AND THEN STRATEGICALLY PLACED AROUND THE LEVEL
 	makeRandomJumpingBot(game, botSpriteType, 300, 200);
-	//makeRandomJumpingBot(game, botSpriteType, 200, 400);
-	//makeRandomJumpingBot(game, botSpriteType, 400, 400);
-	//makeRandomJumpingBot(game, botSpriteType, 800, 700);
-	//makeRandomJumpingBot(game, botSpriteType, 900, 700);
-	//makeRandomJumpingBot(game, botSpriteType, 1000, 700);
-	//makeRandomJumpingBot(game, botSpriteType, 100, 1000);
-	//makeRandomJumpingBot(game, botSpriteType, 300, 1000);	
-	//makeRandomJumpingBot(game, botSpriteType, 500, 1000);
-	//makeRandomJumpingBot(game, botSpriteType, 100, 1400);
-	//makeRandomJumpingBot(game, botSpriteType, 400, 1400);	
-	//makeRandomJumpingBot(game, botSpriteType, 700, 1400);
+	makeRandomJumpingBot(game, botSpriteType, 200, 400);
+	makeRandomJumpingBot(game, botSpriteType, 400, 400);
+	makeRandomJumpingBot(game, botSpriteType, 800, 700);
+	makeRandomJumpingBot(game, botSpriteType, 900, 700);
+	makeRandomJumpingBot(game, botSpriteType, 1000, 700);
+	makeRandomJumpingBot(game, botSpriteType, 100, 1000);
+	makeRandomJumpingBot(game, botSpriteType, 300, 1000);	
+	makeRandomJumpingBot(game, botSpriteType, 500, 1000);
+	makeRandomJumpingBot(game, botSpriteType, 100, 1400);
+	makeRandomJumpingBot(game, botSpriteType, 400, 1400);	
+	makeRandomJumpingBot(game, botSpriteType, 700, 1400);
 
-	// AND THEN A BUNCH LINED UP NEAR THE LEVEL EXIT
-	//for (int i = 0; i < 14; i++)
-	//	makeRandomJumpingBot(game, botSpriteType, 1700.0f + (i*100.0f), 1300.0f);
+	 //AND THEN A BUNCH LINED UP NEAR THE LEVEL EXIT
+	for (int i = 0; i < 14; i++)
+		makeRandomJumpingBot(game, botSpriteType, 1700.0f + (i*100.0f), 1300.0f);
 
 }
 
@@ -238,7 +238,7 @@ void BugginOutDataLoader::makeRandomJumpingBot(Game *game, AnimatedSpriteType *r
 	SpriteManager *spriteManager = game->getGSM()->getSpriteManager();
 	Physics *physics = game->getGSM()->getPhysics();
 	//RandomJumpingBot *bot = new RandomJumpingBot(physics, 30, 120, 40);
-    RandomJumpingBot *bot = new RandomJumpingBot(physics, 30, 120,25);
+    RandomJumpingBot *bot = new RandomJumpingBot(physics, 30, 120,20);
     bot->setIfMonster(true);
 	physics->addCollidableObject(bot);
 	PhysicalProperties *pp = bot->getPhysicalProperties();
@@ -464,8 +464,14 @@ void BugginOutDataLoader::initInGameGUI(GameGUI *gui, DirectXTextureManager *gui
 
     inGameGUI->addLifebar(lifebar);
     
-    
+    int im1 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR11);
+    int im2 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR12);
+    int im3 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR13);
+    int im4 = guiTextureManager->loadTexture(W_IMAGE_LIFEBAR14);
 
+     Life* lives= new Life();
+    lives->initLife(im1, im4, 200, 20, 0, 255, 210, 54);
+    inGameGUI->addLives(lives);
 
 	// INIT THE QUIT BUTTON
 	Button *buttonToAdd = new Button();

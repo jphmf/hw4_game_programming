@@ -45,6 +45,7 @@ Game::Game()
 	gui = new GameGUI();
 	text = new GameText();
     cur_life = 0;
+    cur_number_life= 3;
 }
 
 /*

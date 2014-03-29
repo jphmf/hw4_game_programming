@@ -37,6 +37,8 @@ private:
 
     list<Life*>     *life;
 
+    list<Life*>     *number_lives;
+
     int current_life;
 
 public:
@@ -47,6 +49,7 @@ public:
 	void setCurrentLife(int current) {current_life = current;}
 	wstring getScreenName()			{ return screenName;			}
     void addLifebar(Life *lifebar);
+    void addLives(Life *lives);
    
     // INLINED MUTATOR METHODS
 	void setScreenName(wchar_t *initScreenName)
@@ -60,7 +63,7 @@ public:
     
 	void addButton(Button *buttonToAdd);
 	void addOverlayImage(OverlayImage *imageToAdd);
-	void addRenderItemsToRenderList(RenderList *renderList, int current_life);
+	void addRenderItemsToRenderList(RenderList *renderList, int current_life, int num_lives);
 	bool fireButtonCommand(Game *game);
 	void registerButtonEventHandler(ButtonEventHandler *eventHandler);
 	void updateAllButtons(long mouseX, long mouseY);

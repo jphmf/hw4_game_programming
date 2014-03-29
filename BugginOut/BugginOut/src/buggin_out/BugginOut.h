@@ -63,6 +63,12 @@ static const wstring	W_IMAGE_LIFEBAR8	    = L"data/gui/lifebar/image8.png";
 static const wstring	W_IMAGE_LIFEBAR9	    = L"data/gui/lifebar/image9.png";
 static const wstring	W_IMAGE_LIFEBAR10	    = L"data/gui/lifebar/image10.png";
 
+//lives
+static const wstring	W_IMAGE_LIFEBAR11	    = L"data/gui/lives/image03.png";
+static const wstring	W_IMAGE_LIFEBAR12	    = L"data/gui/lives/image02.png";
+static const wstring	W_IMAGE_LIFEBAR13	    = L"data/gui/lives/image01.png";
+static const wstring	W_IMAGE_LIFEBAR14	    = L"data/gui/lives/image00.png";
+
 // FOR OUR SPRITE
 static const wstring	SPRITE_TYPES_DIR = L"data/sprite_types/";
 static const wstring	SPRITE_TYPES_LIST = SPRITE_TYPES_DIR + L"sprite_type_list.xml";

@@ -14,7 +14,7 @@ private:
     int initial_image_id;
     int final_image_id;
     int current_life_per;
-
+    int current_number_lives;
 	// OTHER RENDERING VARIABLES
 	int x;
 	int y;

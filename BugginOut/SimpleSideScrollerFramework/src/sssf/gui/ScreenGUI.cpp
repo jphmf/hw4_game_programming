@@ -24,6 +24,7 @@ ScreenGUI::ScreenGUI()
 {
 	buttons = new list<Button*>();
     life = new list<Life*>();
+    number_lives = new list<Life*>();
 	overlayImages = new list<OverlayImage*>();
 	screenName = NULL;
     current_life = 0;
@@ -54,6 +55,12 @@ void ScreenGUI::addLifebar(Life *lifebar)
 {
 	life->push_back(lifebar);
 }
+
+
+void ScreenGUI::addLives(Life *lifebar)
+{
+	number_lives->push_back(lifebar);
+}
 /*
 	addOverlayImage - This method adds a constructured OverlayImage
 	to this GUI screen.
@@ -69,7 +76,7 @@ void ScreenGUI::addOverlayImage(OverlayImage *imageToAdd)
 	through all the GUI elements, the buttons and the overlay images,
 	and for each it generates a RenderItem and adds it to the list.
 */
-void ScreenGUI::addRenderItemsToRenderList(RenderList *renderList, int cf)
+void ScreenGUI::addRenderItemsToRenderList(RenderList *renderList, int cf, int numberLife)
 {
 	// FIRST ADD THE OVERLAY IMAGES TO THE RENDER LIST
 	// FOR THIS WE'LL USE AN ITERATOR
@@ -148,6 +155,28 @@ void ScreenGUI::addRenderItemsToRenderList(RenderList *renderList, int cf)
             lifeBarToRender->getHeight());
         
         lifeIterator++;
+    }
+    
+    list<Life*>::iterator livesIterator;
+    livesIterator = number_lives->begin();
+    while(livesIterator != number_lives->end())
+    {
+        Life* livesToRender = (*livesIterator);
+
+        int id_to_render = numberLife % ((livesToRender->getFinalId() - livesToRender->getInitialId()) );
+
+        //int id_to_render = numberLife;
+        //int id_to_render = (((livesToRender->getFinalId() - livesToRender->getInitialId()))) - numberLife; 
+        renderList->addRenderItem(     livesToRender->getInitialId() - id_to_render  , 
+            livesToRender->getX(),
+            livesToRender->getY(),
+            livesToRender->getZ(),
+            livesToRender->getAlpha(),
+            livesToRender->getWidth(),
+            livesToRender->getHeight());
+        
+        livesIterator++;
+        
     }
     
 }

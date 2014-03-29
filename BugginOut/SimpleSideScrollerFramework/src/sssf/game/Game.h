@@ -74,7 +74,7 @@ private:
 	wstring				currentLevelFileName;
 
     int cur_life;
-
+    int cur_number_life;
 public:
 	// INLINED ACCESSOR METHODS - THE REAL THINGS
 	GameStateManager*	getGSM()				{ return gsm;								}
@@ -89,6 +89,9 @@ public:
 	GameTimer*			getTimer()				{ return timer;								}
     void setCurrentLife(int current) {cur_life = current;}
     int getCurrentLife() {return cur_life;}
+
+    void setCurrentNumberLife(int current) {cur_number_life = current;}
+    int getCurrentNumberLife() {return cur_number_life;}
 	// AND FOR GETTING THE NAME OF THE FILE USED FOR LOADING THIS LEVEL
 	wstring				getCurrentLevelFileName()	{ return currentLevelFileName;			}
 

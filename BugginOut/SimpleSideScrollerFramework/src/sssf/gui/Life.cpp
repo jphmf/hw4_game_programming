@@ -10,6 +10,7 @@ Life::Life()
 	initial_image_id = 0;
     final_image_id = 0;
     current_life_per = 100;
+    //current_number_lives = 3;
 	x = 0;
 	y = 0;
 	z = 0;
